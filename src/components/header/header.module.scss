@@ -1,0 +1,12 @@
+.header {
+  background-color: #2d2c2c;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 15px 0;
+
+  a.active {
+    color: red;
+  }
+}

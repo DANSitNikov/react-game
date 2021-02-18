@@ -1,0 +1,12 @@
+.chooseLevel {
+  margin: 100px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  column-gap: 40px;
+
+  button {
+    width: 100px;
+    height: 80px;
+  }
+}

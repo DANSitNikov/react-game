@@ -1,0 +1,6 @@
+.app {
+  max-width: 800px;
+  margin: 0 auto;
+  background-color: rgba(0, 0, 0, 0.5);
+  min-height: 100vh;
+}
