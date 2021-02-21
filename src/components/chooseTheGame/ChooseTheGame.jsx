@@ -2,9 +2,11 @@ import React from "react";
 import { Button } from "react-bootstrap";
 import style from './chooseLevel.module.scss';
 import { NavLink } from "react-router-dom";
+import store from "../../redux/store";
 
-const ChooseTheGame = () => {
+const ChooseTheGame = (props) => {
 	const gameLevels = ['36', '64', '81'];
+	console.log(props);
 
 	const levelsElements = gameLevels.map((el) => <NavLink to={{pathname: `/game/${el}`, state: {
 			num: el,
