@@ -1,0 +1,28 @@
+{
+  "files": {
+    "main.css": "/static/css/main.7188379f.chunk.css",
+    "main.js": "/static/js/main.6fd2cec6.chunk.js",
+    "main.js.map": "/static/js/main.6fd2cec6.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.f6516c49.js",
+    "runtime-main.js.map": "/static/js/runtime-main.f6516c49.js.map",
+    "static/css/2.d293486c.chunk.css": "/static/css/2.d293486c.chunk.css",
+    "static/js/2.afea1138.chunk.js": "/static/js/2.afea1138.chunk.js",
+    "static/js/2.afea1138.chunk.js.map": "/static/js/2.afea1138.chunk.js.map",
+    "static/js/3.892023aa.chunk.js": "/static/js/3.892023aa.chunk.js",
+    "static/js/3.892023aa.chunk.js.map": "/static/js/3.892023aa.chunk.js.map",
+    "index.html": "/index.html",
+    "static/css/2.d293486c.chunk.css.map": "/static/css/2.d293486c.chunk.css.map",
+    "static/css/main.7188379f.chunk.css.map": "/static/css/main.7188379f.chunk.css.map",
+    "static/js/2.afea1138.chunk.js.LICENSE.txt": "/static/js/2.afea1138.chunk.js.LICENSE.txt",
+    "static/media/home.8f163322.mp3": "/static/media/home.8f163322.mp3",
+    "static/media/horror.5ef76540.mp3": "/static/media/horror.5ef76540.mp3",
+    "static/media/index.css": "/static/media/skyrimback.16ceef31.jpg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.f6516c49.js",
+    "static/css/2.d293486c.chunk.css",
+    "static/js/2.afea1138.chunk.js",
+    "static/css/main.7188379f.chunk.css",
+    "static/js/main.6fd2cec6.chunk.js"
+  ]
+}
