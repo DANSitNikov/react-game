@@ -17,9 +17,9 @@ const AboutGame = (props) => {
 	});
 
 	return (
-		<div>
+		<>
 			{ element }
-		</div>
+		</>
 	);
 };
 

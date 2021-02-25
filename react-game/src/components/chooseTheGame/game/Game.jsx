@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 import style from './game.module.scss';
@@ -8,11 +8,17 @@ import TimerContainer from '../../timer/TimerContainer';
 import OpenCellsContainer from '../../openCells/OpenCellsContainer';
 
 const Game = (props) => {
-	const { number, gameStatus } = props;
+	const { number, gameStatus, openCells, finishedGame, winnerGame } = props;
+	const [bombs, setBombs] = useState([...createBombs(number)]);
+	const [element, setElement] = useState([...createElement(number)]);
+	const [checked, setChecked] = useState([]);
+
 	const gameField = React.createRef();
-	const checked = [];
-	const element = [...createElement(number)];
-	const bombs = [...createBombs(number)];
+
+	if (openCells === number - bombs.length) {
+		finishedGame(true);
+		winnerGame(true);
+	}
 
 	const checkItem = (e) => {
 		let target;
@@ -20,6 +26,10 @@ const Game = (props) => {
 			target = e.target;
 		} else {
 			target = e;
+		}
+
+		if (target.className.includes(style.field)) {
+			return;
 		}
 
 		const item = Number(target.id.split('-')[1]);
@@ -69,8 +79,8 @@ const Game = (props) => {
 				if (bombs.includes(Number(button.id.split('-')[1]))) {
 					button.classList.add(style.aggressive);
 				}
-				props.finishedGame(true);
 			});
+			finishedGame(true);
 		} else {
 			target.textContent = `${btnText}`;
 			target.disabled = true;
@@ -91,6 +101,24 @@ const Game = (props) => {
 			checkOtherItems(bombsCount);
 		}
 	};
+
+	const showBombs = (e) => {
+		e.preventDefault();
+	//	e.target.disabled = true;
+		[...gameField.current.children].forEach((button) => {
+			if (bombs.includes(Number(button.id.split('-')[1]))) {
+				button.classList.add(style.aggressive);
+			}
+		});
+
+		setTimeout(() => {
+			[...gameField.current.children].forEach((button) => {
+				if (bombs.includes(Number(button.id.split('-')[1]))) {
+					button.classList.remove(style.aggressive);
+				}
+			});
+		}, 200);
+	}
 
 	const gameFieldElement = () => {
 		return (
@@ -124,11 +152,14 @@ const Game = (props) => {
 							<TimerContainer />
 						</div>
 						{gameFieldElement()}
-						<NavLink to="/aboutGame">
-							<Button onClick={() => props.setFieldStatus(false)} variant="outline-success">
-								Finish the game
-							</Button>
-						</NavLink>
+						<div>
+							<Button onClick={showBombs} variant='success'>Показать бомбы</Button>
+							<NavLink to="/aboutGame">
+								<Button onClick={() => props.setFieldStatus(false)} variant="outline-success">
+									Finish the game
+								</Button>
+							</NavLink>
+						</div>
 					</>
 				)}
 		</div>

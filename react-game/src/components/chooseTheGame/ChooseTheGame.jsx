@@ -8,6 +8,7 @@ const ChooseTheGame = (props) => {
 		props.setFieldStatus(true);
 		props.setOpenCellsToZero();
 		props.finishedGame(false);
+		props.winnerGame(false);
 	}, []);
 
 	return (

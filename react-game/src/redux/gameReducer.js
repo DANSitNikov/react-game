@@ -1,6 +1,7 @@
 const CHOOSE_LEVEL = 'CHOOSE_LEVEL';
 const SET_FIELD_STATUS = 'SET_FIELD_STATUS';
 const FINISHED_GAME = 'FINISHED_GAME';
+const VICTORY_GAME = 'VICTORY_GAME';
 
 const initialState = {
 	levels: {
@@ -12,6 +13,7 @@ const initialState = {
 	chosenLevel: 0,
 	disableField: true,
 	finishedGame: false,
+	victoryGame: false,
 };
 
 const gameReducer = (state = initialState, action) => {
@@ -31,6 +33,11 @@ const gameReducer = (state = initialState, action) => {
 			...state,
 			finishedGame: action.status,
 		};
+		case VICTORY_GAME:
+			return {
+				...state,
+				victoryGame: action.status,
+			}
 	default:
 		return state;
 	}
@@ -48,6 +55,11 @@ export const setFieldStatus = (status) => ({
 
 export const finishedGame = (status) => ({
 	type: FINISHED_GAME,
+	status,
+});
+
+export const winnerGame = (status) => ({
+	type: VICTORY_GAME,
 	status,
 });
 

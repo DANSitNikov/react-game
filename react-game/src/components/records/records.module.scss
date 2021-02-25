@@ -1,0 +1,31 @@
+.records {
+  margin: 50px 100px;
+  color: white;
+  max-height: 70vh;
+  overflow-y: auto;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  border: 1px solid white;
+  text-align: center;
+
+  .statisticBlock {
+    .statisticItem {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      border: 1px solid white;
+    }
+  }
+}
+
+.records::-webkit-scrollbar {
+  width: 5px;
+}
+
+.records::-webkit-scrollbar-track{
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
+}
+
+.records::-webkit-scrollbar-thumb {
+  background-color: greenyellow;
+}
+
