@@ -49,9 +49,10 @@ const checkStatistic = (time, level) => {
 	if (!localStorage.getItem(`record${level}`)) {
 		localStorage.setItem(`record${level}`, JSON.stringify([time]));
 	} else {
-		const arrResult = JSON.parse(localStorage.getItem(`record${level}`))
+		const arrResult = JSON.parse(localStorage.getItem(`record${level}`));
 		arrResult.push(time);
-		const sorted = arrResult.sort((a, b) => a.ml - b.ml && a.s - b.s && a.m - b.m || a.ml - b.ml && a.s - b.s || a.ml - b.ml);
+		const sorted = arrResult.sort((a, b) => (a.ml - b.ml && a.s - b.s
+			&& a.m - b.m) || (a.ml - b.ml && a.s - b.s) || a.ml - b.ml);
 		if (sorted.length > 10) sorted.pop();
 		localStorage.setItem(`record${level}`, JSON.stringify(sorted));
 	}
@@ -59,15 +60,15 @@ const checkStatistic = (time, level) => {
 
 export const setStatistic = (time, level) => {
 	switch (level) {
-		case 25:
-			return checkStatistic(time, 'easy');
-		case 36:
-			return checkStatistic(time, 'average');
-		case 49:
-			return checkStatistic(time, 'hard');
-		default:
-			return checkStatistic(time, 'impossible');
+	case 25:
+		return checkStatistic(time, 'easy');
+	case 36:
+		return checkStatistic(time, 'average');
+	case 49:
+		return checkStatistic(time, 'hard');
+	default:
+		return checkStatistic(time, 'impossible');
 	}
-}
+};
 
 export default currentGameStatisticReducer;

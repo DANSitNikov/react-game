@@ -33,11 +33,11 @@ const gameReducer = (state = initialState, action) => {
 			...state,
 			finishedGame: action.status,
 		};
-		case VICTORY_GAME:
-			return {
-				...state,
-				victoryGame: action.status,
-			}
+	case VICTORY_GAME:
+		return {
+			...state,
+			victoryGame: action.status,
+		};
 	default:
 		return state;
 	}

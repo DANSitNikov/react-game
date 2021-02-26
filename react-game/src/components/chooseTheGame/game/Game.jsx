@@ -8,10 +8,12 @@ import TimerContainer from '../../timer/TimerContainer';
 import OpenCellsContainer from '../../openCells/OpenCellsContainer';
 
 const Game = (props) => {
-	const { number, gameStatus, openCells, finishedGame, winnerGame } = props;
-	const [bombs, setBombs] = useState([...createBombs(number)]);
-	const [element, setElement] = useState([...createElement(number)]);
-	const [checked, setChecked] = useState([]);
+	const {
+		number, gameStatus, openCells, finishedGame, winnerGame,
+	} = props;
+	const [bombs] = useState([...createBombs(number)]);
+	const [element] = useState([...createElement(number)]);
+	const [checked] = useState([]);
 	const [won] = useState(React.createRef());
 	const [lost] = useState(React.createRef());
 	console.log(won);
@@ -109,7 +111,7 @@ const Game = (props) => {
 
 	const showBombs = (e) => {
 		e.preventDefault();
-		//e.target.disabled = true;
+		e.target.disabled = true;
 		[...gameField.current.children].forEach((button) => {
 			if (bombs.includes(Number(button.id.split('-')[1]))) {
 				button.classList.add(style.aggressive);
@@ -123,7 +125,7 @@ const Game = (props) => {
 				}
 			});
 		}, 200);
-	}
+	};
 
 	const gameFieldElement = () => {
 		return (
@@ -147,7 +149,13 @@ const Game = (props) => {
 				? (
 					<div className={style.startingTheGame}>
 						<div className={style.needClickToStart}><h2>click start the game</h2></div>
-						<Button className={style.startTheGame} onClick={() => props.setFieldStatus(false)} variant="outline-success">Start the game</Button>
+						<Button
+							className={style.startTheGame}
+							onClick={() => props.setFieldStatus(false)}
+							variant="outline-success"
+						>
+							Start the game
+						</Button>
 					</div>
 				)
 				: (
@@ -158,7 +166,7 @@ const Game = (props) => {
 						</div>
 						{gameFieldElement()}
 						<div>
-							<Button onClick={showBombs} variant='success'>Показать бомбы</Button>
+							<Button onClick={showBombs} variant="success">Показать бомбы</Button>
 							<NavLink to="/aboutGame">
 								<Button onClick={() => props.setFieldStatus(false)} variant="outline-success">
 									Finish the game

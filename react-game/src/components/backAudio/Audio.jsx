@@ -8,13 +8,13 @@ const AudioCreator = (props) => {
 	const { mode, music } = props;
 	const musicSrc = mode === 'friendly' ? musicF : musicD;
 	const audio = React.createRef();
-	const isVisible = usePageVisibility()
+	const isVisible = usePageVisibility();
 
 	return (
 		<ReactHowler
 			src={musicSrc}
 			playing={!!isVisible}
-			loop={true}
+			loop={`${true}`}
 			volume={music / 100}
 			ref={audio}
 		/>

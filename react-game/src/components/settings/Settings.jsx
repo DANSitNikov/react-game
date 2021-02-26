@@ -1,28 +1,29 @@
 import React, { useEffect } from 'react';
 import { Button } from 'react-bootstrap';
 import Slider from '@material-ui/core/Slider';
-import style from './settings.module.scss';
 import Typography from '@material-ui/core/Typography';
+import style from './settings.module.scss';
 import {
 	setLocalMusicVolume,
-	setLocalSoundVolume
+	setLocalSoundVolume,
 } from '../../redux/soundReducer';
 
 const Settings = (props) => {
-	const { lang, setEng, setRus,
+	const {
+		lang, setEng, setRus,
 		toggleMode, mode, sound,
 		music, changeMusicVolume,
-		changeSoundVolume} = props;
+		changeSoundVolume,
+	} = props;
 
 	const [valueMusic, setValueMusic] = React.useState(music);
 	const [valueSound, setValueSound] = React.useState(sound);
 
 	useEffect(() => {
 		console.log(music, 'whyyyy');
-	//	debugger;
 		setValueMusic(music);
 		setValueSound(sound);
-	})
+	});
 
 	const handleChangeMusic = (event, newValue) => {
 		setValueMusic(newValue);

@@ -1,10 +1,12 @@
 import React from 'react';
-import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
+import 'react-responsive-carousel/lib/styles/carousel.min.css'; // requires a loader
 import style from './records.module.scss';
 
 const Records = (props) => {
-	const {easyLevel, averageLevel,
-		hardLevel, impossibleLevel} = props;
+	const {
+		easyLevel, averageLevel,
+		hardLevel, impossibleLevel,
+	} = props;
 
 	const content = (level) => {
 		let data;
@@ -26,18 +28,25 @@ const Records = (props) => {
 		const markUp = [];
 
 		for (let i = 0; i < 10; i += 1) {
-			markUp.push(<div className={style.statisticItem}>
-				<div>{i + 1})</div>
-				<div>{data[i] ? (
-					<>
-						<span>{data[i].m < 10 ? `0${data[i].m}` : data[i].m}</span>
-						<span> : </span>
-						<span>{data[i].s < 10 ? `0${data[i].s}` : data[i].s}</span>
-						<span> : </span>
-						<span>{data[i].ml < 10 ? `0${data[i].ml}` : data[i].ml}</span>
-					</>
-				) : 'X'}</div>
-			</div>);
+			markUp.push(
+				<div className={style.statisticItem}>
+					<div>
+						{i + 1}
+						)
+					</div>
+					<div>
+						{data[i] ? (
+							<>
+								<span>{data[i].m < 10 ? `0${data[i].m}` : data[i].m}</span>
+								<span> : </span>
+								<span>{data[i].s < 10 ? `0${data[i].s}` : data[i].s}</span>
+								<span> : </span>
+								<span>{data[i].ml < 10 ? `0${data[i].ml}` : data[i].ml}</span>
+							</>
+						) : 'X'}
+					</div>
+				</div>,
+			);
 		}
 
 		return markUp;

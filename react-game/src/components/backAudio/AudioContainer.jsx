@@ -1,4 +1,4 @@
-const { connect } = require('react-redux');
+import connect from 'react-redux/lib/connect/connect';
 import AudioCreator from './Audio';
 
 const mapStateReducer = (state) => ({

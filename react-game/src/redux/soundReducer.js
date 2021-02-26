@@ -4,22 +4,22 @@ const CHANGE_SOUND_VOLUME = 'CHANGE_SOUND_VOLUME';
 const initialState = {
 	music: 50,
 	sound: 50,
-}
+};
 
 const soundReducer = (state = initialState, action) => {
 	switch (action.type) {
-		case CHANGE_MUSIC_VOLUME:
-			return {
-				...state,
-				music: action.volume,
-			}
-		case CHANGE_SOUND_VOLUME:
-			return {
-				...state,
-				sound: action.volume,
-			}
-		default:
-			return state;
+	case CHANGE_MUSIC_VOLUME:
+		return {
+			...state,
+			music: action.volume,
+		};
+	case CHANGE_SOUND_VOLUME:
+		return {
+			...state,
+			sound: action.volume,
+		};
+	default:
+		return state;
 	}
 };
 
@@ -35,10 +35,10 @@ export const changeSoundVolume = (volume) => ({
 
 export const setLocalMusicVolume = (volume) => {
 	localStorage.setItem('musicVolume', JSON.stringify(volume));
-}
+};
 
 export const setLocalSoundVolume = (volume) => {
 	localStorage.setItem('soundVolume', JSON.stringify(volume));
-}
+};
 
 export default soundReducer;

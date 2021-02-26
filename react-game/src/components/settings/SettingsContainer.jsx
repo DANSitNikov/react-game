@@ -9,7 +9,6 @@ const SettingsDefaultValues = (props) => {
 	useEffect(() => {
 		if (localStorage.getItem('musicVolume')) {
 			const music = JSON.parse(localStorage.getItem('musicVolume'));
-			console.log(music);
 			props.changeMusicVolume(music);
 		}
 
@@ -17,13 +16,9 @@ const SettingsDefaultValues = (props) => {
 			const sound = JSON.parse(localStorage.getItem('soundVolume'));
 			props.changeSoundVolume(sound);
 		}
-
-		if (localStorage.getItem('languageValue')) {
-			console.log('trattaatat');
-		}
 	}, []);
 
-	return <Settings {...props} />
+	return <Settings {...props} />;
 };
 
 const mapStateToProps = (state) => ({
@@ -34,8 +29,11 @@ const mapStateToProps = (state) => ({
 });
 
 const SettingsContainer = connect(mapStateToProps, {
-	setEng, setRus, toggleMode,
-	changeMusicVolume, changeSoundVolume,
+	setEng,
+	setRus,
+	toggleMode,
+	changeMusicVolume,
+	changeSoundVolume,
 })(SettingsDefaultValues);
 
 export default SettingsContainer;

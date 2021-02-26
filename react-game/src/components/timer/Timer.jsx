@@ -18,7 +18,7 @@ const Timer = (props) => {
 			updatedS = 0;
 		}
 		updatedMl += 1;
-		return setTime({ ml: updatedMl,s: updatedS, m: updatedM });
+		return setTime({ ml: updatedMl, s: updatedS, m: updatedM });
 	}
 
 	useEffect(() => {
@@ -32,7 +32,7 @@ const Timer = (props) => {
 	}
 
 	if (victoryGame) {
-		setStatistic(time, number)
+		setStatistic(time, number);
 		clearInterval(intervalID);
 	}
 

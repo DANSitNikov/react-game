@@ -16,8 +16,6 @@ const Header = (props) => {
 	const { language, mode } = props;
 	let element;
 
-	console.log(mode);
-
 	Object.keys(language.language).forEach((key) => {
 		if (key === props.language.langStatus) {
 			element = [

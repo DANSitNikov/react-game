@@ -6,13 +6,13 @@ const initialState = {
 
 const styleModeReducer = (state = initialState, action) => {
 	switch (action.type) {
-		case TOGGLE_MODE:
-			return {
-				...state,
-				mode: action.mode,
-			};
-		default:
-			return state;
+	case TOGGLE_MODE:
+		return {
+			...state,
+			mode: action.mode,
+		};
+	default:
+		return state;
 	}
 };
 
