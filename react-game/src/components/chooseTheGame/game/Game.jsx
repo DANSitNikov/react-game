@@ -12,12 +12,16 @@ const Game = (props) => {
 	const [bombs, setBombs] = useState([...createBombs(number)]);
 	const [element, setElement] = useState([...createElement(number)]);
 	const [checked, setChecked] = useState([]);
+	const [won] = useState(React.createRef());
+	const [lost] = useState(React.createRef());
+	console.log(won);
 
 	const gameField = React.createRef();
 
 	if (openCells === number - bombs.length) {
 		finishedGame(true);
 		winnerGame(true);
+		won.current.classList.add(style.visible);
 	}
 
 	const checkItem = (e) => {
@@ -81,6 +85,7 @@ const Game = (props) => {
 				}
 			});
 			finishedGame(true);
+			lost.current.classList.add(style.visible);
 		} else {
 			target.textContent = `${btnText}`;
 			target.disabled = true;
@@ -104,7 +109,7 @@ const Game = (props) => {
 
 	const showBombs = (e) => {
 		e.preventDefault();
-	//	e.target.disabled = true;
+		//e.target.disabled = true;
 		[...gameField.current.children].forEach((button) => {
 			if (bombs.includes(Number(button.id.split('-')[1]))) {
 				button.classList.add(style.aggressive);
@@ -140,10 +145,10 @@ const Game = (props) => {
 		<div>
 			{gameStatus
 				? (
-					<>
-						<div>click start the game</div>
-						<Button onClick={() => props.setFieldStatus(false)} variant="outline-success">Start the game</Button>
-					</ >
+					<div className={style.startingTheGame}>
+						<div className={style.needClickToStart}><h2>click start the game</h2></div>
+						<Button className={style.startTheGame} onClick={() => props.setFieldStatus(false)} variant="outline-success">Start the game</Button>
+					</div>
 				)
 				: (
 					<>
@@ -160,6 +165,8 @@ const Game = (props) => {
 								</Button>
 							</NavLink>
 						</div>
+						<div ref={won} className={style.invisible}>You have won the game</div>
+						<div ref={lost} className={style.invisible}>You have lost the game</div>
 					</>
 				)}
 		</div>

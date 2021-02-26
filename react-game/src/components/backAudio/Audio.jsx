@@ -1,19 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import ReactHowler from 'react-howler';
+import { usePageVisibility } from 'react-page-visibility';
 import musicF from '../../assets/sounds/home.mp3';
 import musicD from '../../assets/sounds/horror.mp3';
 
 const AudioCreator = (props) => {
-	console.log(props, 'hwoaoa');
-	const { mode } = props;
-	const music = mode === 'friendly' ? musicF : musicD;
+	const { mode, music } = props;
+	const musicSrc = mode === 'friendly' ? musicF : musicD;
+	const audio = React.createRef();
+	const isVisible = usePageVisibility()
 
 	return (
 		<ReactHowler
-			src={music}
-			playing={true}
+			src={musicSrc}
+			playing={!!isVisible}
 			loop={true}
-			volume={0.1}
+			volume={music / 100}
+			ref={audio}
 		/>
 	);
 };

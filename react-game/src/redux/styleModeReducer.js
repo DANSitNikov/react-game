@@ -5,7 +5,6 @@ const initialState = {
 };
 
 const styleModeReducer = (state = initialState, action) => {
-	console.log(state);
 	switch (action.type) {
 		case TOGGLE_MODE:
 			return {

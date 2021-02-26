@@ -53,7 +53,6 @@ const checkStatistic = (time, level) => {
 		arrResult.push(time);
 		const sorted = arrResult.sort((a, b) => a.ml - b.ml && a.s - b.s && a.m - b.m || a.ml - b.ml && a.s - b.s || a.ml - b.ml);
 		if (sorted.length > 10) sorted.pop();
-		console.log(sorted);
 		localStorage.setItem(`record${level}`, JSON.stringify(sorted));
 	}
 };

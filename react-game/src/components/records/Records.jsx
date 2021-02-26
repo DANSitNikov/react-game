@@ -1,10 +1,8 @@
 import React from 'react';
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
-import { Carousel } from 'react-responsive-carousel';
 import style from './records.module.scss';
 
 const Records = (props) => {
-	console.log(props);
 	const {easyLevel, averageLevel,
 		hardLevel, impossibleLevel} = props;
 
@@ -19,6 +17,10 @@ const Records = (props) => {
 			data = hardLevel;
 		} else if (level === 'impossible') {
 			data = impossibleLevel;
+		}
+
+		if (!data) {
+			data = [];
 		}
 
 		const markUp = [];

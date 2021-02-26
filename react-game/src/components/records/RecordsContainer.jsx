@@ -9,8 +9,7 @@ const RecordsGetData = (props) => {
 		setHardLevel, setImpossibleLevel } = props;
 
 	useEffect(() => {
-		props.setEasyLevel(JSON.parse(localStorage.getItem('recordeasy')))
-		console.log(JSON.parse(localStorage.getItem('recordeasy')));
+		setEasyLevel(JSON.parse(localStorage.getItem('recordeasy')))
 		setAverageLevel(JSON.parse(localStorage.getItem('recordaverage')))
 		setHardLevel(JSON.parse(localStorage.getItem('recordhard')))
 		setImpossibleLevel(JSON.parse(localStorage.getItem('recordimpossible')))

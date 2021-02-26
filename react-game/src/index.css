@@ -5,9 +5,8 @@ body {
     sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    background-image: url("assets/images/skyrimback.jpg") !important;
-    background-size: cover;
-    background-repeat: no-repeat;
+    /*background-image: url("assets/images/backs/friendlyDragons.jpg") !important;*/
+    background-size: contain;
     background-position: center center;
     background-attachment: fixed !important;
     min-width: 100vw;

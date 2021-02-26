@@ -1,10 +1,22 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import style from './header.module.scss';
+import angry from '../../assets/images/backs/angryDragons.jpg';
+import friend from '../../assets/images/backs/friendlyDragons.jpg';
+
+const createBack = (mode) => {
+	if (mode === 'friendly') {
+		document.body.style.backgroundImage = `url(${friend})`;
+	} else {
+		document.body.style.backgroundImage = `url(${angry})`;
+	}
+};
 
 const Header = (props) => {
-	const { language } = props;
+	const { language, mode } = props;
 	let element;
+
+	console.log(mode);
 
 	Object.keys(language.language).forEach((key) => {
 		if (key === props.language.langStatus) {
@@ -16,6 +28,8 @@ const Header = (props) => {
 			];
 		}
 	});
+
+	createBack(mode);
 
 	return (
 		<div className={style.header}>

@@ -1,4 +1,16 @@
-.soundSlider {
-  background-color: black;
-  color: red;
+.settings{
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  padding: 50px;
+  row-gap: 40px;
+
+  .soundSlider {
+    max-width: 300px;
+  }
+
+  button {
+    width: 250px;
+    margin: 0 auto;
+  }
 }
