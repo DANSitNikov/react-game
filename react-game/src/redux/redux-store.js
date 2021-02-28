@@ -5,6 +5,7 @@ import currentGameStatisticReducer from './currentGameStatisticReducer';
 import recordsReducer from './recordsReducer';
 import styleModeReducer from './styleModeReducer';
 import soundReducer from './soundReducer';
+import chooseTheDragonReducer from './chooseTheDragonReducer';
 
 const reducers = combineReducers({
 	changeLang: changeLangReducer,
@@ -13,6 +14,7 @@ const reducers = combineReducers({
 	recordsPage: recordsReducer,
 	styleMode: styleModeReducer,
 	soundSettings: soundReducer,
+	chooseDragon: chooseTheDragonReducer,
 });
 
 const store = createStore(reducers);

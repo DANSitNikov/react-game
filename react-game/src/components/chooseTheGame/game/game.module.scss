@@ -26,17 +26,30 @@
   grid-template-rows: repeat(9, 1fr);
 }
 
-.friendly {
+.friendlyOne {
   background-image: url("../../../assets/images/svgIcons/friendlyDragon.svg");
   background-size: cover;
   background-repeat: no-repeat;
 }
 
-.aggressive {
+.aggressiveOne {
   background-image: url("../../../assets/images/svgIcons/angryDragon.svg");
   background-size: cover;
   background-repeat: no-repeat;
 }
+
+.friendlyTwo {
+  background-image: url("../../../assets/images/svgIcons/otherFriendlyDragon.svg");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.aggressiveTwo {
+  background-image: url("../../../assets/images/svgIcons/otherAngryDragon.svg");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
 
 .startingTheGame {
   text-align: center;

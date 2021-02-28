@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import ReactHowler from 'react-howler';
 import { usePageVisibility } from 'react-page-visibility';
 import musicF from '../../assets/sounds/home.mp3';
