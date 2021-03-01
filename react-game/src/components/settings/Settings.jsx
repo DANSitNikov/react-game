@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import { Button } from 'react-bootstrap';
 import Slider from '@material-ui/core/Slider';
 import Typography from '@material-ui/core/Typography';
 import style from './settings.module.scss';
@@ -13,6 +12,7 @@ import friendlyTwo from '../../assets/images/svgIcons/otherFriendlyDragon.svg';
 import angryOne from '../../assets/images/svgIcons/angryDragon.svg';
 import angryTwo from '../../assets/images/svgIcons/otherAngryDragon.svg';
 import { setLocalAngryDragon, setLocalFriendDragon } from '../../redux/chooseTheDragonReducer';
+import Button from '@material-ui/core/Button';
 
 const Settings = (props) => {
 	const {
@@ -23,6 +23,8 @@ const Settings = (props) => {
 		friend, setFriendDragon,
 		setAngryDragon
 	} = props;
+
+	const color = mode === 'friendly' ? 'primary' : 'secondary';
 
 	const [valueMusic, setValueMusic] = React.useState(music);
 	const [valueSound, setValueSound] = React.useState(sound);
@@ -46,14 +48,6 @@ const Settings = (props) => {
 		changeSoundVolume(newValue);
 		setLocalSoundVolume(newValue);
 	};
-
-	const changeLang = lang === 'rus'
-		? <Button onClick={setEng}>сменить на английский</Button>
-		: <Button onClick={setRus}>change to russian</Button>;
-
-	const onToggleMode = mode === 'friendly'
-		? <Button onClick={() => toggleMode('danger')}>сменить на опасность</Button>
-		: <Button onClick={() => toggleMode('friendly')}>сменить на дружелюбность</Button>;
 
 	const [open, setOpen] = React.useState(false);
 
@@ -89,23 +83,41 @@ const Settings = (props) => {
 		});
 	};
 
+	let element = {};
+
+	Object.keys(lang.language).forEach((key) => {
+		if (key === props.lang.langStatus) {
+			element = {
+				changeLang: props.lang.language[key].settings.changeLang,
+				changeTheme: props.lang.language[key].settings.changeTheme,
+				chooseCharacter: props.lang.language[key].settings.chooseCharacter,
+				musicVolume: props.lang.language[key].settings.musicVolume,
+				soundVolume: props.lang.language[key].settings.soundVolume,
+			};
+		}
+	});
+
 	return (
 		<div className={style.settings}>
-			{ changeLang }
-			{ onToggleMode }
+			<Button variant="contained" color={color} onClick={lang.langStatus === 'rus' ? setEng : setRus}><h5>{element.changeLang}</h5></Button>
+			<Button variant="contained" color={color} onClick={() => toggleMode(`${mode === 'friendly' ? 'danger' : 'friendly'}`)}><h5>{element.changeTheme}</h5></Button>
 			<div>
-				<Typography gutterBottom>Music volume</Typography>
-				<Slider valueLabelDisplay="auto" value={valueMusic} onChange={handleChangeMusic} className={style.soundSlider} aria-labelledby="continuous-slider" />
+				<Typography gutterBottom>
+					<h4>{element.musicVolume}</h4>
+				</Typography>
+				<Slider valueLabelDisplay="auto" value={valueMusic} color={color} onChange={handleChangeMusic} className={style.soundSlider} aria-labelledby="continuous-slider" />
 			</div>
 			<div>
-				<Typography gutterBottom>Sound volume</Typography>
-				<Slider valueLabelDisplay="auto" value={valueSound} onChange={handleChangeSound} className={style.soundSlider} aria-labelledby="continuous-slider" />
+				<Typography gutterBottom>
+					<h4>{element.soundVolume}</h4>
+				</Typography>
+				<Slider valueLabelDisplay="auto" value={valueSound} onChange={handleChangeSound} color={color} className={style.soundSlider} aria-labelledby="continuous-slider" />
 			</div>
 			<ClickAwayListener onClickAway={handleClickAway}>
 				<div className={style.root}>
-					<button type="button" onClick={handleClick}>
-						Open menu dropdown
-					</button>
+					<Button variant="contained" color={color} type="button" onClick={handleClick}>
+						<h5>{element.chooseCharacter}</h5>
+					</Button>
 					{open ? (
 						<div className={`${style.dropdown} ${style.choseImg}`}>
 							<div ref={friendlyDragon} onClick={chooseFriend} className={style.imagesBlock}>

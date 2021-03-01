@@ -4,6 +4,7 @@ import { finishedGame, setFieldStatus, winnerGame } from '../../../redux/gameRed
 import { setOpenCells } from '../../../redux/currentGameStatisticReducer';
 import Game from './Game';
 import { setAngryDragon, setFriendDragon } from '../../../redux/chooseTheDragonReducer';
+import { changeAutoGameStatus, changeAutoWinGameStatus, changeShowBombsBtnStatus } from '../../../redux/buttonsReducer';
 
 const GameDataInfo = (props) => {
 	useEffect(() => {
@@ -28,6 +29,11 @@ const mapStateToProps = (state) => ({
 	soundVolume: state.soundSettings.sound,
 	friend: state.chooseDragon.friend,
 	bomb: state.chooseDragon.bomb,
+	showBombsBtn: state.buttonsHandler.showBombsBtn,
+	autoGameBtn: state.buttonsHandler.autoGameBtn,
+	autoWinBtn: state.buttonsHandler.autoWinBtn,
+	mode: state.styleMode.mode,
+	language: state.changeLang,
 });
 
 const GameContainer = connect(mapStateToProps, {
@@ -37,6 +43,9 @@ const GameContainer = connect(mapStateToProps, {
 	winnerGame,
 	setFriendDragon,
 	setAngryDragon,
+	changeShowBombsBtnStatus,
+	changeAutoGameStatus,
+	changeAutoWinGameStatus,
 })(GameDataInfo);
 
 export default GameContainer;

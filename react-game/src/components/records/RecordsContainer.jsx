@@ -1,10 +1,9 @@
 import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
 import Records from './Records';
 import {
 	setAverageLevel, setEasyLevel, setHardLevel, setImpossibleLevel,
 } from '../../redux/recordsReducer';
-
-const { connect } = require('react-redux');
 
 const RecordsGetData = (props) => {
 	useEffect(() => {
@@ -22,6 +21,7 @@ const mapStateToProps = (state) => ({
 	averageLevel: state.recordsPage.averageLevel,
 	hardLevel: state.recordsPage.hardLevel,
 	impossibleLevel: state.recordsPage.impossibleLevel,
+	language: state.changeLang,
 });
 
 const RecordsContainer = connect(mapStateToProps, {

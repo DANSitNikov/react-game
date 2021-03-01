@@ -13,6 +13,8 @@ body {
     min-height: 100vh;
     overflow-x: hidden;
     user-select: none !important;
+    font-weight: 500 !important;
+    color: white !important;
 }
 
 code {

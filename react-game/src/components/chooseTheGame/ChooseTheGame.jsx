@@ -9,6 +9,9 @@ const ChooseTheGame = (props) => {
 		props.setOpenCellsToZero();
 		props.finishedGame(false);
 		props.winnerGame(false);
+		props.changeShowBombsBtnStatus('active');
+		props.changeAutoGameStatus('active');
+		props.changeAutoWinGameStatus('active');
 	}, []);
 
 	return (

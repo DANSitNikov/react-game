@@ -1,12 +1,28 @@
 import React from 'react';
 import 'react-responsive-carousel/lib/styles/carousel.min.css'; // requires a loader
 import style from './records.module.scss';
+import { NavLink } from 'react-router-dom';
+import { Button } from '@material-ui/core';
 
 const Records = (props) => {
 	const {
 		easyLevel, averageLevel,
 		hardLevel, impossibleLevel,
+		language,
 	} = props;
+
+	let element;
+
+	Object.keys(language.language).forEach((key) => {
+		if (key === props.language.langStatus) {
+			element = [
+				props.language.language[key].levels.easy,
+				props.language.language[key].levels.average,
+				props.language.language[key].levels.hard,
+				props.language.language[key].levels.impossible,
+			];
+		}
+	});
 
 	const content = (level) => {
 		let data;
@@ -53,24 +69,24 @@ const Records = (props) => {
 	};
 
 	return (
-		<div className={style.records}>
-			<div className={style.statisticBlock}>
-				<h2>Easy</h2>
-				<div>{content('easy')}</div>
+			<div className={style.records}>
+				<div className={style.statisticBlock}>
+					<h2>{element[0]}</h2>
+					<div>{content('easy')}</div>
+				</div>
+				<div className={style.statisticBlock}>
+					<h2>{element[1]}</h2>
+					<div>{content('average')}</div>
+				</div>
+				<div className={style.statisticBlock}>
+					<h2>{element[2]}</h2>
+					<div>{content('hard')}</div>
+				</div>
+				<div className={style.statisticBlock}>
+					<h2>{element[3]}</h2>
+					<div>{content('impossible')}</div>
+				</div>
 			</div>
-			<div className={style.statisticBlock}>
-				<h2>Average</h2>
-				<div>{content('average')}</div>
-			</div>
-			<div className={style.statisticBlock}>
-				<h2>Hard</h2>
-				<div>{content('hard')}</div>
-			</div>
-			<div className={style.statisticBlock}>
-				<h2>Impossible</h2>
-				<div>{content('impossible')}</div>
-			</div>
-		</div>
 	);
 };
 

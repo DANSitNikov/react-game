@@ -9,4 +9,44 @@
   a.active {
     color: red;
   }
+
+  a{
+    text-decoration: none !important;
+  }
+
+  @media (max-width: 500px) {
+    display: none;
+  }
+}
+
+.buttonsPhoneMenu{
+  display: none !important;
+
+  @media (max-width: 500px) {
+    display: block !important;
+  }
+}
+
+.phoneMenu{
+  div {
+    position: relative;
+    width: 100vw !important;
+    top: 10px !important;
+
+    ul{
+      background-color: black;
+      display: grid !important;
+      grid-template-columns: 1fr !important;
+      gap: 20px;
+      text-align: center;
+
+      a{
+        padding: 0 10px;
+
+        button {
+          width: 100%;
+        }
+      }
+    }
+  }
 }

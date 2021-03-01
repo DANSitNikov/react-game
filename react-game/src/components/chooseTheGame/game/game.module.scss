@@ -3,7 +3,17 @@
   height: 400px;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  margin: 50px auto;
+  margin: 25px auto;
+
+  @media(max-width: 600px) {
+    width: 350px;
+    height: 350px;
+  }
+
+  @media(max-width: 350px) {
+    width: 310px;
+    height: 310px;
+  }
 }
 
 .twentyFive {
@@ -55,16 +65,18 @@
   text-align: center;
 
   .needClickToStart{
-    width: 400px;
-    height: 300px;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 50px auto;
+    margin: 150px auto;
   }
 
   .startTheGame{
     margin: 0 auto;
+
+    h4{
+      margin: 0 !important;
+    }
   }
 }
 
@@ -73,13 +85,55 @@
 }
 
 .visible {
+  position: fixed;
   display: block;
-  position: relative;
   top: 0;
+  left: 0;
+  z-index: 10;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
 
-  background-color: white;
+  div {
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    width: 600px;
+    height: 600px;
+  }
+}
 
-  width: 400px;
-  height: 400px;
-  margin: 50px auto;
+.btnWrapper {
+  display: grid;
+  grid-template-columns: repeat(2, 200px) !important;
+  margin: 0 auto;
+  gap: 10px;
+  justify-content: space-around;
+
+  @media (max-width: 600px) {
+    grid-template-columns: repeat(1, 200px) !important;
+  }
+  @media (max-width: 360px) {
+    padding-bottom: 80px;
+  }
+}
+
+.finishBtn {
+  width: 200px !important;
+}
+
+.statistic{
+  width: 320px !important;
+  display: flex;
+  justify-content: space-around;
+  font-family: monospace;
+  margin: 10px auto;
+  padding: 0 10px;
+  font-size: 15px;
+}
+
+a{
+  text-decoration: none !important;
 }

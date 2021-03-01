@@ -33,7 +33,7 @@ const SettingsDefaultValues = (props) => {
 };
 
 const mapStateToProps = (state) => ({
-	lang: state.changeLang.langStatus,
+	lang: state.changeLang,
 	mode: state.styleMode.mode,
 	sound: state.soundSettings.sound,
 	music: state.soundSettings.music,

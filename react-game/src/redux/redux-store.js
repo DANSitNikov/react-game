@@ -6,6 +6,7 @@ import recordsReducer from './recordsReducer';
 import styleModeReducer from './styleModeReducer';
 import soundReducer from './soundReducer';
 import chooseTheDragonReducer from './chooseTheDragonReducer';
+import buttonsReducer from './buttonsReducer';
 
 const reducers = combineReducers({
 	changeLang: changeLangReducer,
@@ -15,6 +16,7 @@ const reducers = combineReducers({
 	styleMode: styleModeReducer,
 	soundSettings: soundReducer,
 	chooseDragon: chooseTheDragonReducer,
+	buttonsHandler: buttonsReducer,
 });
 
 const store = createStore(reducers);
