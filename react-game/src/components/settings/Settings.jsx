@@ -1,18 +1,18 @@
 import React, { useEffect } from 'react';
 import Slider from '@material-ui/core/Slider';
 import Typography from '@material-ui/core/Typography';
+import ClickAwayListener from '@material-ui/core/ClickAwayListener';
+import Button from '@material-ui/core/Button';
 import style from './settings.module.scss';
 import {
 	setLocalMusicVolume,
 	setLocalSoundVolume,
 } from '../../redux/soundReducer';
-import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import friendlyOne from '../../assets/images/svgIcons/friendlyDragon.svg';
 import friendlyTwo from '../../assets/images/svgIcons/otherFriendlyDragon.svg';
 import angryOne from '../../assets/images/svgIcons/angryDragon.svg';
 import angryTwo from '../../assets/images/svgIcons/otherAngryDragon.svg';
 import { setLocalAngryDragon, setLocalFriendDragon } from '../../redux/chooseTheDragonReducer';
-import Button from '@material-ui/core/Button';
 
 const Settings = (props) => {
 	const {
@@ -21,7 +21,7 @@ const Settings = (props) => {
 		music, changeMusicVolume,
 		changeSoundVolume, bomb,
 		friend, setFriendDragon,
-		setAngryDragon
+		setAngryDragon,
 	} = props;
 
 	const color = mode === 'friendly' ? 'primary' : 'secondary';
@@ -121,20 +121,36 @@ const Settings = (props) => {
 					{open ? (
 						<div className={`${style.dropdown} ${style.choseImg}`}>
 							<div ref={friendlyDragon} onClick={chooseFriend} className={style.imagesBlock}>
-								<img className={`${style.images} ${
-									friend ? style.activeFriend : null
-								}`} src={friendlyOne} alt="good dragon"/>
-								<img className={`${style.images} ${
-									!friend ? style.activeFriend : null
-								}`} src={friendlyTwo} alt="good dragon"/>
+								<img
+									className={`${style.images} ${
+										friend ? style.activeFriend : null
+									}`}
+									src={friendlyOne}
+									alt="good dragon"
+								/>
+								<img
+									className={`${style.images} ${
+										!friend ? style.activeFriend : null
+									}`}
+									src={friendlyTwo}
+									alt="good dragon"
+								/>
 							</div>
 							<div ref={angryDragon} onClick={chooseBomb} className={style.imagesBlock}>
-								<img className={`${style.images} ${
-									bomb ? style.activeAngry : null
-								}`} src={angryOne} alt="angry dragon"/>
-								<img className={`${style.images} ${
-									!bomb ? style.activeAngry : null
-								}`} src={angryTwo} alt="angry dragon"/>
+								<img
+									className={`${style.images} ${
+										bomb ? style.activeAngry : null
+									}`}
+									src={angryOne}
+									alt="angry dragon"
+								/>
+								<img
+									className={`${style.images} ${
+										!bomb ? style.activeAngry : null
+									}`}
+									src={angryTwo}
+									alt="angry dragon"
+								/>
 							</div>
 						</div>
 					) : null}

@@ -1,8 +1,6 @@
 import React from 'react';
 import 'react-responsive-carousel/lib/styles/carousel.min.css'; // requires a loader
 import style from './records.module.scss';
-import { NavLink } from 'react-router-dom';
-import { Button } from '@material-ui/core';
 
 const Records = (props) => {
 	const {
@@ -69,24 +67,24 @@ const Records = (props) => {
 	};
 
 	return (
-			<div className={style.records}>
-				<div className={style.statisticBlock}>
-					<h2>{element[0]}</h2>
-					<div>{content('easy')}</div>
-				</div>
-				<div className={style.statisticBlock}>
-					<h2>{element[1]}</h2>
-					<div>{content('average')}</div>
-				</div>
-				<div className={style.statisticBlock}>
-					<h2>{element[2]}</h2>
-					<div>{content('hard')}</div>
-				</div>
-				<div className={style.statisticBlock}>
-					<h2>{element[3]}</h2>
-					<div>{content('impossible')}</div>
-				</div>
+		<div className={style.records}>
+			<div className={style.statisticBlock}>
+				<h2>{element[0]}</h2>
+				<div>{content('easy')}</div>
 			</div>
+			<div className={style.statisticBlock}>
+				<h2>{element[1]}</h2>
+				<div>{content('average')}</div>
+			</div>
+			<div className={style.statisticBlock}>
+				<h2>{element[2]}</h2>
+				<div>{content('hard')}</div>
+			</div>
+			<div className={style.statisticBlock}>
+				<h2>{element[3]}</h2>
+				<div>{content('impossible')}</div>
+			</div>
+		</div>
 	);
 };
 

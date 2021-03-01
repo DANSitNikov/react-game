@@ -1,14 +1,14 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import style from './header.module.scss';
-import angry from '../../assets/images/backs/angryDragons.jpg';
-import friend from '../../assets/images/backs/friendlyDragons.jpg';
 import { Button } from '@material-ui/core';
 import Menu from '@material-ui/core/Menu';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
+import style from './header.module.scss';
+import angry from '../../assets/images/backs/angryDragons.jpg';
+import friend from '../../assets/images/backs/friendlyDragons.jpg';
 
 const createBack = (mode) => {
 	if (mode === 'friendly') {
@@ -35,18 +35,26 @@ const Header = (props) => {
 	Object.keys(language.language).forEach((key) => {
 		if (key === props.language.langStatus) {
 			element = [
-				<NavLink onClick={handleClose} to="/aboutGame" activeClassName={style.active}><Button variant="contained" color={color}>
-					{props.language.language[key].aboutGameHeader}
-				</Button></NavLink>,
-				<NavLink onClick={handleClose} to="/game" activeClassName={style.active}><Button variant="contained" color={color}>
-					{props.language.language[key].startTheGameHeader}
-				</Button></NavLink>,
-				<NavLink onClick={handleClose} to="/records" activeClassName={style.active}><Button variant="contained" color={color}>
-					{props.language.language[key].recordsHeader}
-				</Button></NavLink>,
-				<NavLink onClick={handleClose} to="/settings" activeClassName={style.active}><Button variant="contained" color={color}>
-					{props.language.language[key].settingsHeader}
-				</Button></NavLink>,
+				<NavLink onClick={handleClose} to="/aboutGame" activeClassName={style.active}>
+					<Button variant="contained" color={color}>
+						{props.language.language[key].aboutGameHeader}
+					</Button>
+				</NavLink>,
+				<NavLink onClick={handleClose} to="/game" activeClassName={style.active}>
+					<Button variant="contained" color={color}>
+						{props.language.language[key].startTheGameHeader}
+					</Button>
+				</NavLink>,
+				<NavLink onClick={handleClose} to="/records" activeClassName={style.active}>
+					<Button variant="contained" color={color}>
+						{props.language.language[key].recordsHeader}
+					</Button>
+				</NavLink>,
+				<NavLink onClick={handleClose} to="/settings" activeClassName={style.active}>
+					<Button variant="contained" color={color}>
+						{props.language.language[key].settingsHeader}
+					</Button>
+				</NavLink>,
 			];
 		}
 	});
@@ -61,12 +69,11 @@ const Header = (props) => {
 
 			<AppBar variant="contained" color={color} className={style.buttonsPhoneMenu} position="static">
 				<Toolbar>
-					<IconButton onClick={handleClick} edge="start"  color="inherit" aria-label="menu">
+					<IconButton onClick={handleClick} edge="start" color="inherit" aria-label="menu">
 						<MenuIcon />
 					</IconButton>
 				</Toolbar>
 			</AppBar>
-
 
 			<Menu
 				id="simple-menu"

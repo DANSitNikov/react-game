@@ -19,8 +19,8 @@ const GameDataInfo = (props) => {
 		}
 	});
 
-	return <Game {...props}/>
-}
+	return <Game {...props} />;
+};
 
 const mapStateToProps = (state) => ({
 	number: state.gamePage.chosenLevel,

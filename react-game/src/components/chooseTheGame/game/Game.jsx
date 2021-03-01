@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
+import Button from '@material-ui/core/Button';
+import { Howl } from 'howler';
 import style from './game.module.scss';
 import Item from '../gameItem/Item';
-import { bombsIncludes, createBombs, createElement, createGameData, friendIncludes } from '../../../redux/gameReducer';
+import {
+	bombsIncludes, createBombs, createElement, createGameData, friendIncludes,
+} from '../../../redux/gameReducer';
 import TimerContainer from '../../timer/TimerContainer';
 import OpenCellsContainer from '../../openCells/OpenCellsContainer';
 import friendlyDragon from '../../../assets/sounds/friendlydragon.mp3';
-import Button from '@material-ui/core/Button';
 
 const Game = (props) => {
 	const {
@@ -33,7 +36,7 @@ const Game = (props) => {
 		winnerGame(true);
 		setTimeout(() => {
 			won.current.classList.add(style.visible);
-		}, 1500)
+		}, 1500);
 	}
 
 	let phrases = {};
@@ -64,7 +67,7 @@ const Game = (props) => {
 		}
 
 		const {
-			item, bombsCount, btnText
+			item, bombsCount, btnText,
 		} = createGameData(target, number, bombs);
 
 		if (bombs.includes(item)) {
@@ -72,9 +75,9 @@ const Game = (props) => {
 			finishedGame(true);
 			setTimeout(() => {
 				lost.current.classList.add(style.visible);
-			}, 1500)
+			}, 1500);
 		} else {
-			friendIncludes(btnText,friend, target);
+			friendIncludes(btnText, friend, target);
 			props.setOpenCells(1);
 		}
 
@@ -116,6 +119,44 @@ const Game = (props) => {
 		}, 200);
 	};
 
+	const autoWin = () => {
+		const createItem = () => {
+			const preItem = Math.ceil(Math.random() * number);
+			if (!checked.includes(preItem)) {
+				return preItem;
+			}
+			return createItem();
+		};
+		const itemGlobal = createItem();
+
+		const autoWinGo = (itemLocal) => {
+			const parameter = !itemLocal ? itemGlobal : itemLocal;
+			const {
+				item, bombsCount, btnText,
+			} = createGameData(parameter, number, bombs);
+
+			friendIncludes(btnText, friend, gameField.current.children[item - 1]);
+
+			props.setOpenCells(1);
+			checked.push(item);
+
+			if (btnText === 0 && !bombs.includes(item)) {
+				const checkOtherItems = (arr) => {
+					arr.forEach((el) => {
+						if (!checked.includes(el)) {
+							const giveItem = Number(gameField.current.children[el - 1].id.split('-')[1]);
+							autoWinGo(giveItem);
+						}
+					});
+				};
+
+				checkOtherItems(bombsCount);
+			}
+		};
+
+		autoWinGo();
+	};
+
 	const startAutoWinGame = () => {
 		[...gameField.current.children].forEach((button) => {
 			const btnDisabled = button;
@@ -138,25 +179,33 @@ const Game = (props) => {
 		props.changeAutoWinGameStatus('inactive');
 	};
 
-	const autoWin = () => {
+	const autoGame = () => {
 		const createItem = () => {
 			const preItem = Math.ceil(Math.random() * number);
 			if (!checked.includes(preItem)) {
 				return preItem;
 			}
 			return createItem();
-		}
+		};
 		const itemGlobal = createItem();
 
-		const autoWinGo = (itemLocal) => {
+		const autoGameGo = (itemLocal) => {
 			const parameter = !itemLocal ? itemGlobal : itemLocal;
 			const {
-				item, bombsCount, btnText
+				item, bombsCount, btnText,
 			} = createGameData(parameter, number, bombs);
 
-			friendIncludes(btnText,friend, gameField.current.children[item - 1]);
+			if (bombs.includes(item)) {
+				bombsIncludes(gameField, bombs, bomb);
+				finishedGame(true);
+				setTimeout(() => {
+					lost.current.classList.add(style.visible);
+				}, 1500);
+			} else {
+				friendIncludes(btnText, friend, gameField.current.children[item - 1]);
+				props.setOpenCells(1);
+			}
 
-			props.setOpenCells(1);
 			checked.push(item);
 
 			if (btnText === 0 && !bombs.includes(item)) {
@@ -164,16 +213,16 @@ const Game = (props) => {
 					arr.forEach((el) => {
 						if (!checked.includes(el)) {
 							const giveItem = Number(gameField.current.children[el - 1].id.split('-')[1]);
-							autoWinGo(giveItem);
+							autoGameGo(giveItem);
 						}
 					});
 				};
 
 				checkOtherItems(bombsCount);
 			}
-		}
+		};
 
-		autoWinGo();
+		autoGameGo();
 	};
 
 	const startAutoGame = (e) => {
@@ -206,70 +255,22 @@ const Game = (props) => {
 		props.changeAutoWinGameStatus('inactive');
 	};
 
-	const autoGame = () => {
-		const createItem = () => {
-			const preItem = Math.ceil(Math.random() * number);
-			if (!checked.includes(preItem)) {
-				return preItem;
-			}
-			return createItem();
-		}
-		const itemGlobal = createItem();
-
-		const autoGameGo = (itemLocal) => {
-			const parameter = !itemLocal ? itemGlobal : itemLocal;
-			const {
-				item, bombsCount, btnText
-			} = createGameData(parameter, number, bombs);
-
-			if (bombs.includes(item)) {
-				bombsIncludes(gameField, bombs, bomb);
-				finishedGame(true);
-				setTimeout(() => {
-					lost.current.classList.add(style.visible);
-				}, 1500)
-			} else {
-				friendIncludes(btnText,friend, gameField.current.children[item - 1]);
-				props.setOpenCells(1);
-			}
-
-			checked.push(item);
-
-			if (btnText === 0 && !bombs.includes(item)) {
-				const checkOtherItems = (arr) => {
-					arr.forEach((el) => {
-						if (!checked.includes(el)) {
-							const giveItem = Number(gameField.current.children[el - 1].id.split('-')[1]);
-							autoGameGo(giveItem);
-						}
-					});
-				};
-
-				checkOtherItems(bombsCount);
-			}
-		}
-
-		autoGameGo();
-	};
-
-	const gameFieldElement = () => {
-		return (
-			<div
-				onClick={(e) => {
-					checkItem(e);
-					friendlyDragonSound.play();
-				}}
-				ref={gameField}
-				className={`${style.field} ${
-					number === 25 ? style.twentyFive
-						: number === 36 ? style.thirtySix
-							: number === 49 ? style.fortySeven
-								: style.impossible}`}
-			>
-				{element.map((item) => <Item key={item} item={item} />)}
-			</div>
-		);
-	};
+	const gameFieldElement = () => (
+		<div
+			onClick={(e) => {
+				checkItem(e);
+				friendlyDragonSound.play();
+			}}
+			ref={gameField}
+			className={`${style.field} ${
+				number === 25 ? style.twentyFive
+					: number === 36 ? style.thirtySix
+						: number === 49 ? style.fortySeven
+							: style.impossible}`}
+		>
+			{element.map((item) => <Item key={item} item={item} />)}
+		</div>
+	);
 
 	return (
 		<div>
@@ -290,24 +291,27 @@ const Game = (props) => {
 						</div>
 						{gameFieldElement()}
 						<div className={style.btnWrapper}>
-							<Button onClick={showBombs}
-							        variant="contained"
-							        color={color}
-											disabled={showBombsBtn !== 'active'}
+							<Button
+								onClick={showBombs}
+								variant="contained"
+								color={color}
+								disabled={showBombsBtn !== 'active'}
 							>
 								{phrases.showBombs}
 							</Button>
-							<Button onClick={startAutoGame}
-							        variant="contained"
-							        color={color}
-							        disabled={autoGameBtn !== 'active'}
+							<Button
+								onClick={startAutoGame}
+								variant="contained"
+								color={color}
+								disabled={autoGameBtn !== 'active'}
 							>
 								{phrases.autoGame}
 							</Button>
-							<Button onClick={startAutoWinGame}
-							        variant="contained"
-							        color={color}
-							        disabled={autoWinBtn !== 'active'}
+							<Button
+								onClick={startAutoWinGame}
+								variant="contained"
+								color={color}
+								disabled={autoWinBtn !== 'active'}
 							>
 								{phrases.autoVictory}
 							</Button>

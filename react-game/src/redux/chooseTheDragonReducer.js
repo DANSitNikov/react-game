@@ -4,22 +4,22 @@ const BOMB = 'BOMB';
 const initialState = {
 	friend: true,
 	bomb: true,
-}
+};
 
 const chooseTheDragonReducer = (state = initialState, action) => {
 	switch (action.type) {
-		case FRIEND:
-			return {
-				...state,
-				friend: action.dragon,
-			};
-		case BOMB:
-			return {
-				...state,
-				bomb: action.dragon,
-			};
-		default:
-			return state;
+	case FRIEND:
+		return {
+			...state,
+			friend: action.dragon,
+		};
+	case BOMB:
+		return {
+			...state,
+			bomb: action.dragon,
+		};
+	default:
+		return state;
 	}
 };
 

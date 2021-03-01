@@ -94,7 +94,7 @@ export const createGameData = (target, number, bombs) => {
 	console.log(typeof target);
 	const item = typeof target === 'number'
 		? target
-		:Number(target.id.split('-')[1]);
+		: Number(target.id.split('-')[1]);
 	const num = Math.sqrt(number);
 	const one = item - num;
 	const two = item - num + 1;
@@ -136,7 +136,7 @@ export const createGameData = (target, number, bombs) => {
 
 	return {
 		item, bombsCount, btnText,
-	}
+	};
 };
 
 export const bombsIncludes = (gameField, bombs, bomb) => {
@@ -148,14 +148,16 @@ export const bombsIncludes = (gameField, bombs, bomb) => {
 				: button.classList.add(style.aggressiveTwo);
 		}
 	});
-}
+};
 
 export const friendIncludes = (btnText, friend, target) => {
+	const currentTarget = target;
+
 	if (btnText !== 0) {
-		target.textContent = `${btnText}`;
+		currentTarget.textContent = `${btnText}`;
 	}
-	target.disabled = true;
-	friend ? target.classList.add(style.friendlyOne)
+	currentTarget.disabled = true;
+	currentTarget ? target.classList.add(style.friendlyOne)
 		: target.classList.add(style.friendlyTwo);
 };
 

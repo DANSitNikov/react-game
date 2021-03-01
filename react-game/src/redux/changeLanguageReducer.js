@@ -33,7 +33,7 @@ const initialState = {
 				autoGame: 'Авто игра',
 				autoVictory: 'Автовыигрышь',
 				finishTheGame: 'Закончить игру',
-			}
+			},
 		},
 		eng: {
 			settingsHeader: 'Settings',
@@ -64,7 +64,7 @@ const initialState = {
 				autoGame: 'Auto game',
 				autoVictory: 'Auto victory',
 				finishTheGame: 'Finish the game',
-			}
+			},
 		},
 	},
 	langStatus: 'rus',
