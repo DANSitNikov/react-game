@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import style from './game.module.scss';
 import Item from '../gameItem/Item';
-import { createBombs, createElement } from '../../../redux/gameReducer';
+import { bombsIncludes, createBombs, createElement, createGameData, friendIncludes } from '../../../redux/gameReducer';
 import TimerContainer from '../../timer/TimerContainer';
 import OpenCellsContainer from '../../openCells/OpenCellsContainer';
 import friendlyDragon from '../../../assets/sounds/friendlydragon.mp3';
@@ -63,66 +63,18 @@ const Game = (props) => {
 			return;
 		}
 
-		const item = Number(target.id.split('-')[1]);
-		const num = Math.sqrt(number);
-		const one = item - num;
-		const two = item - num + 1;
-		const three = item - num - 1;
-		const four = item - 1;
-		const five = item + 1;
-		const six = item + num;
-		const seven = item + num + 1;
-		const eight = item + num - 1;
-		const bombsCount = [];
-
-		if (item === 1) {
-			bombsCount.push(five, seven, six);
-		} else if (item === num) {
-			bombsCount.push(four, six, eight);
-		} else if (item === number - num + 1) {
-			bombsCount.push(one, two, five);
-		} else if (item === number) {
-			bombsCount.push(one, three, four);
-		} else if (item > 1 && item < num) {
-			bombsCount.push(four, five, six, seven, eight);
-		} else if (item > number - num + 1 && item < number) {
-			bombsCount.push(one, two, three, four, five);
-		} else if ((item - 1) % num === 0) {
-			bombsCount.push(one, two, five, six, seven);
-		} else if (item % num === 0) {
-			bombsCount.push(one, three, four, six, eight);
-		} else {
-			bombsCount.push(one, two, three, four, five, six, seven, eight);
-		}
-
-		let btnText = 0;
-
-		for (let i = 0; i < bombsCount.length; i += 1) {
-			if (bombs.includes(bombsCount[i]) && bombsCount[i] > 0) {
-				btnText += 1;
-			}
-		}
+		const {
+			item, bombsCount, btnText
+		} = createGameData(target, number, bombs);
 
 		if (bombs.includes(item)) {
-			[...gameField.current.children].forEach((button) => {
-				const btnDisabled = button;
-				btnDisabled.disabled = true;
-				if (bombs.includes(Number(button.id.split('-')[1]))) {
-					bomb ? button.classList.add(style.aggressiveOne)
-						: button.classList.add(style.aggressiveTwo);
-				}
-			});
+			bombsIncludes(gameField, bombs, bomb);
 			finishedGame(true);
 			setTimeout(() => {
 				lost.current.classList.add(style.visible);
 			}, 1500)
 		} else {
-			if (btnText !== 0) {
-				target.textContent = `${btnText}`;
-			}
-			target.disabled = true;
-			friend ? target.classList.add(style.friendlyOne)
-				: target.classList.add(style.friendlyTwo);
+			friendIncludes(btnText,friend, target);
 			props.setOpenCells(1);
 		}
 
@@ -164,7 +116,7 @@ const Game = (props) => {
 		}, 200);
 	};
 
-	const startAutoWinGame = (e) => {
+	const startAutoWinGame = () => {
 		[...gameField.current.children].forEach((button) => {
 			const btnDisabled = button;
 			btnDisabled.disabled = true;
@@ -197,52 +149,12 @@ const Game = (props) => {
 		const itemGlobal = createItem();
 
 		const autoWinGo = (itemLocal) => {
-			const item = !itemLocal ? itemGlobal : itemLocal;
-			const num = Math.sqrt(number);
-			const one = item - num;
-			const two = item - num + 1;
-			const three = item - num - 1;
-			const four = item - 1;
-			const five = item + 1;
-			const six = item + num;
-			const seven = item + num + 1;
-			const eight = item + num - 1;
-			const bombsCount = [];
+			const parameter = !itemLocal ? itemGlobal : itemLocal;
+			const {
+				item, bombsCount, btnText
+			} = createGameData(parameter, number, bombs);
 
-			if (item === 1) {
-				bombsCount.push(five, seven, six);
-			} else if (item === num) {
-				bombsCount.push(four, six, eight);
-			} else if (item === number - num + 1) {
-				bombsCount.push(one, two, five);
-			} else if (item === number) {
-				bombsCount.push(one, three, four);
-			} else if (item > 1 && item < num) {
-				bombsCount.push(four, five, six, seven, eight);
-			} else if (item > number - num + 1 && item < number) {
-				bombsCount.push(one, two, three, four, five);
-			} else if ((item - 1) % num === 0) {
-				bombsCount.push(one, two, five, six, seven);
-			} else if (item % num === 0) {
-				bombsCount.push(one, three, four, six, eight);
-			} else {
-				bombsCount.push(one, two, three, four, five, six, seven, eight);
-			}
-
-			let btnText = 0;
-
-			for (let i = 0; i < bombsCount.length; i += 1) {
-				if (bombs.includes(bombsCount[i]) && bombsCount[i] > 0) {
-					btnText += 1;
-				}
-			}
-
-			if (btnText !== 0) {
-				gameField.current.children[item - 1].textContent = `${btnText}`;
-			}
-
-			friend ? [...gameField.current.children][item - 1].classList.add(style.friendlyOne)
-				: [...gameField.current.children][item - 1].classList.add(style.friendlyTwo);
+			friendIncludes(btnText,friend, gameField.current.children[item - 1]);
 
 			props.setOpenCells(1);
 			checked.push(item);
@@ -264,8 +176,6 @@ const Game = (props) => {
 		autoWinGo();
 	};
 
-	//---------------------------------------------
-
 	const startAutoGame = (e) => {
 		e.target.disabled = true;
 
@@ -273,8 +183,6 @@ const Game = (props) => {
 			const btnDisabled = button;
 			btnDisabled.disabled = true;
 		});
-
-		// checked.push(...bombs);
 
 		const start = setInterval(() => {
 			let limit = false;
@@ -309,68 +217,20 @@ const Game = (props) => {
 		const itemGlobal = createItem();
 
 		const autoGameGo = (itemLocal) => {
-			const item = !itemLocal ? itemGlobal : itemLocal;
-			const num = Math.sqrt(number);
-			const one = item - num;
-			const two = item - num + 1;
-			const three = item - num - 1;
-			const four = item - 1;
-			const five = item + 1;
-			const six = item + num;
-			const seven = item + num + 1;
-			const eight = item + num - 1;
-			const bombsCount = [];
-
-			if (item === 1) {
-				bombsCount.push(five, seven, six);
-			} else if (item === num) {
-				bombsCount.push(four, six, eight);
-			} else if (item === number - num + 1) {
-				bombsCount.push(one, two, five);
-			} else if (item === number) {
-				bombsCount.push(one, three, four);
-			} else if (item > 1 && item < num) {
-				bombsCount.push(four, five, six, seven, eight);
-			} else if (item > number - num + 1 && item < number) {
-				bombsCount.push(one, two, three, four, five);
-			} else if ((item - 1) % num === 0) {
-				bombsCount.push(one, two, five, six, seven);
-			} else if (item % num === 0) {
-				bombsCount.push(one, three, four, six, eight);
-			} else {
-				bombsCount.push(one, two, three, four, five, six, seven, eight);
-			}
-
-			let btnText = 0;
-
-			for (let i = 0; i < bombsCount.length; i += 1) {
-				if (bombs.includes(bombsCount[i]) && bombsCount[i] > 0) {
-					btnText += 1;
-				}
-			}
+			const parameter = !itemLocal ? itemGlobal : itemLocal;
+			const {
+				item, bombsCount, btnText
+			} = createGameData(parameter, number, bombs);
 
 			if (bombs.includes(item)) {
-				[...gameField.current.children].forEach((button) => {
-					const btnDisabled = button;
-					btnDisabled.disabled = true;
-					if (bombs.includes(Number(button.id.split('-')[1]))) {
-
-						bomb ? button.classList.add(style.aggressiveOne)
-							: button.classList.add(style.aggressiveTwo);
-					}
-				});
+				bombsIncludes(gameField, bombs, bomb);
 				finishedGame(true);
 				setTimeout(() => {
 					lost.current.classList.add(style.visible);
 				}, 1500)
 			} else {
-				if (btnText !== 0) {
-					gameField.current.children[item - 1].textContent = `${btnText}`;
-				}
-				gameField.current.children[item - 1].disabled = true;
-
-				friend ? gameField.current.children[item - 1].classList.add(style.friendlyOne)
-					: gameField.current.children[item - 1].classList.add(style.friendlyTwo);
+				friendIncludes(btnText,friend, gameField.current.children[item - 1]);
+				props.setOpenCells(1);
 			}
 
 			checked.push(item);
