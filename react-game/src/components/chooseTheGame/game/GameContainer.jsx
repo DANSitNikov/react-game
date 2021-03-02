@@ -4,7 +4,7 @@ import {
 	changeGameStatusControl,
 	finishedGame,
 	setFieldStatus,
-	winnerGame
+	winnerGame,
 } from '../../../redux/gameReducer';
 import { setOpenCells, setOpenCellsHacked } from '../../../redux/currentGameStatisticReducer';
 import Game from './Game';

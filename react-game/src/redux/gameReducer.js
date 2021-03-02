@@ -42,11 +42,11 @@ const gameReducer = (state = initialState, action) => {
 			...state,
 			victoryGame: action.status,
 		};
-		case CHANGE_GAME_STATUS:
-			return {
-				...state,
-				gameStatus: action.status,
-			}
+	case CHANGE_GAME_STATUS:
+		return {
+			...state,
+			gameStatus: action.status,
+		};
 	default:
 		return state;
 	}
@@ -155,8 +155,11 @@ export const bombsIncludes = (gameField, bombs, bomb) => {
 		const btnDisabled = button;
 		btnDisabled.disabled = true;
 		if (bombs.includes(Number(button.id.split('-')[1]))) {
-			bomb ? button.classList.add(style.aggressiveOne)
-				: button.classList.add(style.aggressiveTwo);
+			if (bomb) {
+				button.classList.add(style.aggressiveOne);
+			} else {
+				button.classList.add(style.aggressiveTwo);
+			}
 		}
 	});
 };
@@ -169,8 +172,12 @@ export const friendIncludes = (btnText, friend, target) => {
 	}
 
 	currentTarget.disabled = true;
-	friend ? target.classList.add(style.friendlyOne)
-		: target.classList.add(style.friendlyTwo);
+
+	if (friend) {
+		target.classList.add(style.friendlyOne);
+	} else {
+		target.classList.add(style.friendlyTwo);
+	}
 };
 
 export const disableAllBtns = (gameField) => {

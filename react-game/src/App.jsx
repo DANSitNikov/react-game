@@ -9,7 +9,6 @@ import GameContainer from './components/chooseTheGame/game/GameContainer';
 import RecordsContainer from './components/records/RecordsContainer';
 import Footer from './components/footer/Footer';
 import AudioContainer from './components/backAudio/AudioContainer';
-import FullScreen from './components/fullScreen/FullScreen';
 import FullScreenContainer from './components/fullScreen/FullScreenContainer';
 
 const App = () => (

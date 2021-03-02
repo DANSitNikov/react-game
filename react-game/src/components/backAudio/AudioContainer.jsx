@@ -1,6 +1,6 @@
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import AudioCreator from './Audio';
-import React, { useEffect } from 'react';
 import { changeMusicVolume } from '../../redux/soundReducer';
 import { setEng, setRus } from '../../redux/changeLanguageReducer';
 import { toggleMode } from '../../redux/styleModeReducer';
@@ -27,7 +27,7 @@ const AudioGetVolume = (props) => {
 		}
 	}, []);
 
-	return <AudioCreator {...props}/>
+	return <AudioCreator {...props} />;
 };
 
 const mapStateReducer = (state) => ({

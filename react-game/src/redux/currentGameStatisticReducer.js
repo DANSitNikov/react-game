@@ -33,12 +33,12 @@ const currentGameStatisticReducer = (state = initialState, action) => {
 		return {
 			...state,
 			openCellsHacked: state.openCells + action.newOpenCellsHacked,
-		}
+		};
 	case SET_OPEN_CELLS_HACKED_TO_ZERO:
 		return {
 			...state,
 			openCellsHacked: 0,
-		}
+		};
 	default:
 		return state;
 	}
@@ -57,7 +57,6 @@ export const setOpenCells = (newOpenCells) => ({
 export const setOpenCellsToZero = () => ({
 	type: SET_OPEN_CELLS_TO_ZERO,
 });
-
 
 export const setOpenCellsHacked = (newOpenCellsHacked) => ({
 	type: SET_OPEN_CELLS_HACKED,

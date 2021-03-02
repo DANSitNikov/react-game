@@ -1,6 +1,6 @@
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import Header from './Header';
-import React, { useEffect } from 'react';
 import { setEng, setRus } from '../../redux/changeLanguageReducer';
 import { toggleMode } from '../../redux/styleModeReducer';
 
@@ -21,8 +21,8 @@ const HeaderGetData = (props) => {
 		}
 	}, []);
 
-	return <Header {...props}/>
-}
+	return <Header {...props} />;
+};
 
 const mapStateToProps = (state) => ({
 	language: state.changeLang,

@@ -109,7 +109,7 @@ const Settings = (props) => {
 	};
 
 	const chooseMode = () => {
-		toggleMode(`${mode === 'friendly' ? 'danger' : 'friendly'}`)
+		toggleMode(`${mode === 'friendly' ? 'danger' : 'friendly'}`);
 	};
 
 	return (

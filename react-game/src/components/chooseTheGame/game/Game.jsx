@@ -10,16 +10,17 @@ import {
 import TimerContainer from '../../timer/TimerContainer';
 import OpenCellsContainer from '../../openCells/OpenCellsContainer';
 import friendlyDragon from '../../../assets/sounds/friendlydragon.mp3';
-import { changeFinishGameStatus } from '../../../redux/buttonsReducer';
 
 const Game = (props) => {
-	let {
-		number, disableField, openCells,
+	const {
+		disableField, openCells,
 		finishedGame, winnerGame, soundVolume,
 		friend, bomb, showBombsBtn,
 		autoGameBtn, autoWinBtn, mode,
 		language, openCellsHacked, finishGameBtn,
 	} = props;
+
+	let { number } = props;
 
 	if (!number) {
 		number = JSON.parse(localStorage.getItem('size'));
@@ -131,16 +132,22 @@ const Game = (props) => {
 
 		[...gameField.current.children].forEach((button) => {
 			if (bombs.includes(Number(button.id.split('-')[1]))) {
-				bomb ? button.classList.add(style.aggressiveOne)
-					: button.classList.add(style.aggressiveTwo);
+				if (bomb) {
+					button.classList.add(style.aggressiveOne);
+				} else {
+					button.classList.add(style.aggressiveTwo);
+				}
 			}
 		});
 
 		setTimeout(() => {
 			[...gameField.current.children].forEach((button) => {
 				if (bombs.includes(Number(button.id.split('-')[1]))) {
-					bomb ? button.classList.remove(style.aggressiveOne)
-						: button.classList.remove(style.aggressiveTwo);
+					if (bomb) {
+						button.classList.remove(style.aggressiveOne);
+					} else {
+						button.classList.remove(style.aggressiveTwo);
+					}
 				}
 			});
 			props.changeShowBombsBtnStatus('inactive');
@@ -294,8 +301,8 @@ const Game = (props) => {
 				className={`${style.field} ${
 					number === 25 ? style.twentyFive
 						: number === 36 ? style.thirtySix
-						: number === 49 ? style.fortySeven
-							: style.impossible}`}
+							: number === 49 ? style.fortySeven
+								: style.impossible}`}
 			>
 				{element.map((item) => <Item key={item} item={item} />)}
 			</div>

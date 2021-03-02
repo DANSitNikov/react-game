@@ -55,11 +55,11 @@ const buttonsReducer = (state = initialState, action) => {
 			...state,
 			settingsBtn: action.status,
 		};
-		case TOGGLE_FINISH_STATUS:
-			return {
-				...state,
-				finishGameBtn: action.status,
-			}
+	case TOGGLE_FINISH_STATUS:
+		return {
+			...state,
+			finishGameBtn: action.status,
+		};
 	default:
 		return state;
 	}
