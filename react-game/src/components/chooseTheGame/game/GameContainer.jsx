@@ -1,10 +1,16 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { finishedGame, setFieldStatus, winnerGame } from '../../../redux/gameReducer';
-import { setOpenCells } from '../../../redux/currentGameStatisticReducer';
+import { changeGameStatusControl, finishedGame, setFieldStatus, winnerGame } from '../../../redux/gameReducer';
+import { setOpenCells, setOpenCellsHacked, setOpenCellsHackedToZero } from '../../../redux/currentGameStatisticReducer';
 import Game from './Game';
 import { setAngryDragon, setFriendDragon } from '../../../redux/chooseTheDragonReducer';
-import { changeAutoGameStatus, changeAutoWinGameStatus, changeShowBombsBtnStatus } from '../../../redux/buttonsReducer';
+import {
+	changeAboutGameStatus,
+	changeAutoGameStatus,
+	changeAutoWinGameStatus, changeGameStatus, changeRecordsStatus,
+	changeSettingsStatus,
+	changeShowBombsBtnStatus
+} from '../../../redux/buttonsReducer';
 
 const GameDataInfo = (props) => {
 	useEffect(() => {
@@ -24,8 +30,9 @@ const GameDataInfo = (props) => {
 
 const mapStateToProps = (state) => ({
 	number: state.gamePage.chosenLevel,
-	gameStatus: state.gamePage.disableField,
+	disableField: state.gamePage.disableField,
 	openCells: state.currentGameStatistic.openCells,
+	openCellsHacked: state.currentGameStatistic.openCellsHacked,
 	soundVolume: state.soundSettings.sound,
 	friend: state.chooseDragon.friend,
 	bomb: state.chooseDragon.bomb,
@@ -34,6 +41,7 @@ const mapStateToProps = (state) => ({
 	autoWinBtn: state.buttonsHandler.autoWinBtn,
 	mode: state.styleMode.mode,
 	language: state.changeLang,
+	gameStatus: state.gamePage.gameStatus,
 });
 
 const GameContainer = connect(mapStateToProps, {
@@ -46,6 +54,12 @@ const GameContainer = connect(mapStateToProps, {
 	changeShowBombsBtnStatus,
 	changeAutoGameStatus,
 	changeAutoWinGameStatus,
+	changeAboutGameStatus,
+	changeGameStatus,
+	changeRecordsStatus,
+	changeSettingsStatus,
+	changeGameStatusControl,
+	setOpenCellsHacked,
 })(GameDataInfo);
 
 export default GameContainer;

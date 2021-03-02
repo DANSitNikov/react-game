@@ -7,6 +7,7 @@ const ChooseTheGame = (props) => {
 	useEffect(() => {
 		props.setFieldStatus(true);
 		props.setOpenCellsToZero();
+		props.setOpenCellsHackedToZero();
 		props.finishedGame(false);
 		props.winnerGame(false);
 		props.changeShowBombsBtnStatus('active');

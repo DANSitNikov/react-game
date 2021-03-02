@@ -5,7 +5,7 @@ import { Howl } from 'howler';
 import style from './game.module.scss';
 import Item from '../gameItem/Item';
 import {
-	bombsIncludes, createBombs, createElement, createGameData, friendIncludes,
+	bombsIncludes, createBombs, createElement, createGameData, disableAllBtns, friendIncludes,
 } from '../../../redux/gameReducer';
 import TimerContainer from '../../timer/TimerContainer';
 import OpenCellsContainer from '../../openCells/OpenCellsContainer';
@@ -13,27 +13,39 @@ import friendlyDragon from '../../../assets/sounds/friendlydragon.mp3';
 
 const Game = (props) => {
 	const {
-		number, gameStatus, openCells,
+		number, disableField, openCells,
 		finishedGame, winnerGame, soundVolume,
 		friend, bomb, showBombsBtn,
 		autoGameBtn, autoWinBtn, mode,
-		language,
+		language, openCellsHacked,
 	} = props;
 	const [bombs] = useState([...createBombs(number)]);
 	const [element] = useState([...createElement(number)]);
 	const [checked] = useState([]);
 	const [won] = useState(React.createRef());
 	const [lost] = useState(React.createRef());
+	const [hacked] = useState(React.createRef());
 	const [friendlyDragonSound] = useState(new Howl({
 		src: friendlyDragon,
 		volume: soundVolume,
 	}));
 	const [gameField] = useState(React.createRef());
+	const [start, setStart] = useState();
 	const color = mode === 'friendly' ? 'primary' : 'secondary';
 
-	if (openCells === number - bombs.length) {
+	if (openCellsHacked === number - bombs.length) {
+		finishedGame(true);
+		props.changeShowBombsBtnStatus('inactive');
+		setTimeout(() => {
+			hacked.current.classList.add(style.visible);
+		}, 1500);
+	}
+
+	if (openCells === number - bombs.length && openCellsHacked !== number - bombs.length) {
 		finishedGame(true);
 		winnerGame(true);
+		disableAllBtns(gameField);
+		props.changeShowBombsBtnStatus('inactive');
 		setTimeout(() => {
 			won.current.classList.add(style.visible);
 		}, 1500);
@@ -50,6 +62,9 @@ const Game = (props) => {
 				autoGame: props.language.language[key].game.autoGame,
 				autoVictory: props.language.language[key].game.autoVictory,
 				finishTheGame: props.language.language[key].game.finishTheGame,
+				victory: props.language.language[key].game.victory,
+				defeat: props.language.language[key].game.defeat,
+				hackingVictory: props.language.language[key].game.hackingVictory,
 			};
 		}
 	});
@@ -73,6 +88,7 @@ const Game = (props) => {
 		if (bombs.includes(item)) {
 			bombsIncludes(gameField, bombs, bomb);
 			finishedGame(true);
+			props.changeShowBombsBtnStatus('inactive');
 			setTimeout(() => {
 				lost.current.classList.add(style.visible);
 			}, 1500);
@@ -137,6 +153,7 @@ const Game = (props) => {
 
 			friendIncludes(btnText, friend, gameField.current.children[item - 1]);
 
+			props.setOpenCellsHacked(1);
 			props.setOpenCells(1);
 			checked.push(item);
 
@@ -158,21 +175,17 @@ const Game = (props) => {
 	};
 
 	const startAutoWinGame = () => {
-		[...gameField.current.children].forEach((button) => {
-			const btnDisabled = button;
-			btnDisabled.disabled = true;
-		});
-
+		disableAllBtns(gameField);
 		checked.push(...bombs);
 
-		const start = setInterval(() => {
+		setStart( setInterval(() => {
 			if (checked.length === number) {
 				clearInterval(start);
 			} else {
 				friendlyDragonSound.play();
 				autoWin();
 			}
-		}, 2000);
+		}, 2000));
 
 		props.changeShowBombsBtnStatus('inactive');
 		props.changeAutoGameStatus('inactive');
@@ -228,12 +241,9 @@ const Game = (props) => {
 	const startAutoGame = (e) => {
 		e.target.disabled = true;
 
-		[...gameField.current.children].forEach((button) => {
-			const btnDisabled = button;
-			btnDisabled.disabled = true;
-		});
+		disableAllBtns(gameField);
 
-		const start = setInterval(() => {
+		setStart(setInterval(() => {
 			let limit = false;
 			if (checked.length !== 0) {
 				for (let i = 0; i < checked.length; i += 1) {
@@ -248,37 +258,59 @@ const Game = (props) => {
 				friendlyDragonSound.play();
 				autoGame();
 			}
-		}, 2000);
+		}, 2000));
 
 		props.changeShowBombsBtnStatus('inactive');
 		props.changeAutoGameStatus('inactive');
 		props.changeAutoWinGameStatus('inactive');
 	};
 
-	const gameFieldElement = () => (
-		<div
-			onClick={(e) => {
-				checkItem(e);
-				friendlyDragonSound.play();
-			}}
-			ref={gameField}
-			className={`${style.field} ${
-				number === 25 ? style.twentyFive
-					: number === 36 ? style.thirtySix
+	const gameFieldElement = () => {
+		props.changeAboutGameStatus('inactive');
+		props.changeGameStatus('inactive');
+		props.changeSettingsStatus('inactive');
+		props.changeRecordsStatus('inactive');
+
+		return (
+			<div
+				onClick={(e) => {
+					checkItem(e);
+					friendlyDragonSound.play();
+				}}
+				ref={gameField}
+				className={`${style.field} ${
+					number === 25 ? style.twentyFive
+						: number === 36 ? style.thirtySix
 						: number === 49 ? style.fortySeven
 							: style.impossible}`}
-		>
-			{element.map((item) => <Item key={item} item={item} />)}
-		</div>
-	);
+			>
+				{element.map((item) => <Item key={item} item={item} />)}
+			</div>
+		);
+	};
+
+	const finishTheGame = () => {
+		props.changeAboutGameStatus('active');
+		props.changeGameStatus('active');
+		props.changeSettingsStatus('active');
+		props.changeRecordsStatus('active');
+		props.changeGameStatusControl('finished');
+		clearInterval(start);
+		props.setFieldStatus(false);
+	};
+
+	const startTheGame = () => {
+		props.changeGameStatusControl('started');
+		props.setFieldStatus(false);
+	};
 
 	return (
 		<div>
-			{gameStatus
+			{disableField
 				? (
 					<div className={style.startingTheGame}>
 						<div className={style.needClickToStart}><h2>Click start the game</h2></div>
-						<Button className={style.startTheGame} onClick={() => props.setFieldStatus(false)} variant="contained" color={color}>
+						<Button className={style.startTheGame} onClick={startTheGame} variant="contained" color={color}>
 							<h4>{phrases.startGame}</h4>
 						</Button>
 					</div>
@@ -316,27 +348,37 @@ const Game = (props) => {
 								{phrases.autoVictory}
 							</Button>
 							<NavLink to="/game">
-								<Button className={style.finishBtn} onClick={() => props.setFieldStatus(false)} variant="contained">
+								<Button className={style.finishBtn} onClick={finishTheGame} variant="contained">
 									{phrases.finishTheGame}
 								</Button>
 							</NavLink>
 						</div>
 						<div ref={won} className={style.invisible}>
-							<div>
-								<h3>You have won the game</h3>
+							<div className={style.backVictory}>
+								<h3>{phrases.victory}</h3>
 								<NavLink to="/game">
-									<Button className={style.finishBtn} onClick={() => props.setFieldStatus(false)} variant="contained" color={color}>
-										Finish the game
+									<Button className={style.finishBtn} onClick={finishTheGame} variant="contained">
+										{phrases.finishTheGame}
 									</Button>
 								</NavLink>
 							</div>
 						</div>
 						<div ref={lost} className={style.invisible}>
-							<div>
-								<h3>You have won the game</h3>
+							<div className={style.backDefeat}>
+								<h3>{phrases.defeat}</h3>
 								<NavLink to="/game">
-									<Button className={style.finishBtn} onClick={() => props.setFieldStatus(false)} variant="contained" color={color}>
-										You have lost the game
+									<Button className={style.finishBtn} onClick={finishTheGame} variant="contained">
+										{phrases.finishTheGame}
+									</Button>
+								</NavLink>
+							</div>
+						</div>
+						<div ref={hacked} className={style.invisible}>
+							<div className={style.backVictory}>
+								<h3>{phrases.hackingVictory}</h3>
+								<NavLink to="/game">
+									<Button className={style.finishBtn} onClick={finishTheGame} variant="contained">
+										{phrases.finishTheGame}
 									</Button>
 								</NavLink>
 							</div>

@@ -4,6 +4,7 @@ const CHOOSE_LEVEL = 'CHOOSE_LEVEL';
 const SET_FIELD_STATUS = 'SET_FIELD_STATUS';
 const FINISHED_GAME = 'FINISHED_GAME';
 const VICTORY_GAME = 'VICTORY_GAME';
+const CHANGE_GAME_STATUS = 'CHANGE_GAME_STATUS';
 
 const initialState = {
 	levels: {
@@ -16,6 +17,7 @@ const initialState = {
 	disableField: true,
 	finishedGame: false,
 	victoryGame: false,
+	gameStatus: 'started',
 };
 
 const gameReducer = (state = initialState, action) => {
@@ -40,6 +42,11 @@ const gameReducer = (state = initialState, action) => {
 			...state,
 			victoryGame: action.status,
 		};
+		case CHANGE_GAME_STATUS:
+			return {
+				...state,
+				gameStatus: action.status,
+			}
 	default:
 		return state;
 	}
@@ -62,6 +69,11 @@ export const finishedGame = (status) => ({
 
 export const winnerGame = (status) => ({
 	type: VICTORY_GAME,
+	status,
+});
+
+export const changeGameStatusControl = (status) => ({
+	type: CHANGE_GAME_STATUS,
 	status,
 });
 
@@ -156,9 +168,17 @@ export const friendIncludes = (btnText, friend, target) => {
 	if (btnText !== 0) {
 		currentTarget.textContent = `${btnText}`;
 	}
+
 	currentTarget.disabled = true;
-	currentTarget ? target.classList.add(style.friendlyOne)
+	friend ? target.classList.add(style.friendlyOne)
 		: target.classList.add(style.friendlyTwo);
+};
+
+export const disableAllBtns = (gameField) => {
+	[...gameField.current.children].forEach((button) => {
+		const btnDisabled = button;
+		btnDisabled.disabled = true;
+	});
 };
 
 export default gameReducer;

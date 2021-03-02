@@ -7,6 +7,7 @@ import styleModeReducer from './styleModeReducer';
 import soundReducer from './soundReducer';
 import chooseTheDragonReducer from './chooseTheDragonReducer';
 import buttonsReducer from './buttonsReducer';
+import fullScreenReducer from './fullScreenReducer';
 
 const reducers = combineReducers({
 	changeLang: changeLangReducer,
@@ -17,6 +18,7 @@ const reducers = combineReducers({
 	soundSettings: soundReducer,
 	chooseDragon: chooseTheDragonReducer,
 	buttonsHandler: buttonsReducer,
+	fullScreenHandler: fullScreenReducer,
 });
 
 const store = createStore(reducers);

@@ -1,10 +1,13 @@
 const SET_SECONDS = 'SET_SECONDS';
 const SET_OPEN_CELLS = 'SET_OPEN_CELLS';
+const SET_OPEN_CELLS_HACKED = 'SET_OPEN_CELLS_HACKED';
+const SET_OPEN_CELLS_HACKED_TO_ZERO = 'SET_OPEN_CELLS_HACKED_TO_ZERO';
 const SET_OPEN_CELLS_TO_ZERO = 'SET_OPEN_CELLS_TO_ZERO';
 
 const initialState = {
 	seconds: 0,
 	openCells: 0,
+	openCellsHacked: 0,
 	recordTime: 0,
 	recordLevel: 0,
 };
@@ -26,6 +29,16 @@ const currentGameStatisticReducer = (state = initialState, action) => {
 			...state,
 			openCells: 0,
 		};
+	case SET_OPEN_CELLS_HACKED:
+		return {
+			...state,
+			openCellsHacked: state.openCells + action.newOpenCellsHacked,
+		}
+	case SET_OPEN_CELLS_HACKED_TO_ZERO:
+		return {
+			...state,
+			openCellsHacked: 0,
+		}
 	default:
 		return state;
 	}
@@ -43,6 +56,16 @@ export const setOpenCells = (newOpenCells) => ({
 
 export const setOpenCellsToZero = () => ({
 	type: SET_OPEN_CELLS_TO_ZERO,
+});
+
+
+export const setOpenCellsHacked = (newOpenCellsHacked) => ({
+	type: SET_OPEN_CELLS_HACKED,
+	newOpenCellsHacked,
+});
+
+export const setOpenCellsHackedToZero = () => ({
+	type: SET_OPEN_CELLS_HACKED_TO_ZERO,
 });
 
 const checkStatistic = (time, level) => {

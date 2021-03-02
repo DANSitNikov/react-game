@@ -19,7 +19,10 @@ const createBack = (mode) => {
 };
 
 const Header = (props) => {
-	const { language, mode } = props;
+	const {
+		language, mode, aboutGameBtn,
+		gameBtn, recordsBtn, settingsBtn,
+	} = props;
 	const [anchorEl, setAnchorEl] = React.useState(null);
 	const color = mode === 'friendly' ? 'primary' : 'secondary';
 
@@ -35,23 +38,23 @@ const Header = (props) => {
 	Object.keys(language.language).forEach((key) => {
 		if (key === props.language.langStatus) {
 			element = [
-				<NavLink onClick={handleClose} to="/aboutGame" activeClassName={style.active}>
-					<Button variant="contained" color={color}>
+				<NavLink onClick={handleClose} to={aboutGameBtn === 'active' ? "/aboutGame" : "#"} activeClassName={style.active}>
+					<Button disabled={aboutGameBtn !== 'active'} variant="contained" color={color}>
 						{props.language.language[key].aboutGameHeader}
 					</Button>
 				</NavLink>,
-				<NavLink onClick={handleClose} to="/game" activeClassName={style.active}>
-					<Button variant="contained" color={color}>
+				<NavLink onClick={handleClose} to={gameBtn === 'active' ? "/game" : "#"} activeClassName={style.active}>
+					<Button disabled={gameBtn !== 'active'} variant="contained" color={color}>
 						{props.language.language[key].startTheGameHeader}
 					</Button>
 				</NavLink>,
-				<NavLink onClick={handleClose} to="/records" activeClassName={style.active}>
-					<Button variant="contained" color={color}>
+				<NavLink onClick={handleClose} to={recordsBtn === 'active' ? "/records" : "#"} activeClassName={style.active}>
+					<Button disabled={recordsBtn !== 'active'} variant="contained" color={color}>
 						{props.language.language[key].recordsHeader}
 					</Button>
 				</NavLink>,
-				<NavLink onClick={handleClose} to="/settings" activeClassName={style.active}>
-					<Button variant="contained" color={color}>
+				<NavLink onClick={handleClose} to={settingsBtn === 'active' ? "/settings" : "#"} activeClassName={style.active}>
+					<Button disabled={settingsBtn !== 'active'} variant="contained" color={color}>
 						{props.language.language[key].settingsHeader}
 					</Button>
 				</NavLink>,
