@@ -27,6 +27,20 @@ const SettingsDefaultValues = (props) => {
 			const dragonValue = JSON.parse(localStorage.getItem('angryDragon'));
 			props.setAngryDragon(dragonValue);
 		}
+
+		if (localStorage.getItem('gameLanguage')) {
+			const lang = JSON.parse(localStorage.getItem('gameLanguage'));
+			if (lang === 'rus') {
+				props.setRus();
+			} else {
+				props.setEng();
+			}
+		}
+
+		if (localStorage.getItem('gameMode')) {
+			const mode = JSON.parse(localStorage.getItem('gameMode'));
+			props.toggleMode(mode);
+		}
 	}, []);
 
 	return <Settings {...props} />;

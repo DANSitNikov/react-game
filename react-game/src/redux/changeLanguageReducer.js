@@ -103,4 +103,8 @@ export const setEng = () => ({
 	lang: 'eng',
 });
 
+export const setLanguage = (lang) => {
+	localStorage.setItem('gameLanguage', JSON.stringify(lang));
+};
+
 export default changeLangReducer;

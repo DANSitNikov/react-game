@@ -10,15 +10,21 @@ import {
 import TimerContainer from '../../timer/TimerContainer';
 import OpenCellsContainer from '../../openCells/OpenCellsContainer';
 import friendlyDragon from '../../../assets/sounds/friendlydragon.mp3';
+import { changeFinishGameStatus } from '../../../redux/buttonsReducer';
 
 const Game = (props) => {
-	const {
+	let {
 		number, disableField, openCells,
 		finishedGame, winnerGame, soundVolume,
 		friend, bomb, showBombsBtn,
 		autoGameBtn, autoWinBtn, mode,
-		language, openCellsHacked,
+		language, openCellsHacked, finishGameBtn,
 	} = props;
+
+	if (!number) {
+		number = JSON.parse(localStorage.getItem('size'));
+	}
+
 	const [bombs] = useState([...createBombs(number)]);
 	const [element] = useState([...createElement(number)]);
 	const [checked] = useState([]);
@@ -27,15 +33,18 @@ const Game = (props) => {
 	const [hacked] = useState(React.createRef());
 	const [friendlyDragonSound] = useState(new Howl({
 		src: friendlyDragon,
-		volume: soundVolume,
+		volume: soundVolume / 100,
 	}));
 	const [gameField] = useState(React.createRef());
 	const [start, setStart] = useState();
 	const color = mode === 'friendly' ? 'primary' : 'secondary';
 
+	localStorage.setItem('size', JSON.stringify(number));
+
 	if (openCellsHacked === number - bombs.length) {
 		finishedGame(true);
 		props.changeShowBombsBtnStatus('inactive');
+		props.changeFinishGameStatus('inactive');
 		setTimeout(() => {
 			hacked.current.classList.add(style.visible);
 		}, 1500);
@@ -46,6 +55,7 @@ const Game = (props) => {
 		winnerGame(true);
 		disableAllBtns(gameField);
 		props.changeShowBombsBtnStatus('inactive');
+		props.changeFinishGameStatus('inactive');
 		setTimeout(() => {
 			won.current.classList.add(style.visible);
 		}, 1500);
@@ -89,6 +99,7 @@ const Game = (props) => {
 			bombsIncludes(gameField, bombs, bomb);
 			finishedGame(true);
 			props.changeShowBombsBtnStatus('inactive');
+			props.changeFinishGameStatus('inactive');
 			setTimeout(() => {
 				lost.current.classList.add(style.visible);
 			}, 1500);
@@ -98,6 +109,7 @@ const Game = (props) => {
 		}
 
 		checked.push(item);
+
 		if (btnText === 0 && !bombs.includes(item)) {
 			const checkOtherItems = (arr) => {
 				arr.forEach((el) => {
@@ -178,7 +190,7 @@ const Game = (props) => {
 		disableAllBtns(gameField);
 		checked.push(...bombs);
 
-		setStart( setInterval(() => {
+		setStart(setInterval(() => {
 			if (checked.length === number) {
 				clearInterval(start);
 			} else {
@@ -211,6 +223,7 @@ const Game = (props) => {
 			if (bombs.includes(item)) {
 				bombsIncludes(gameField, bombs, bomb);
 				finishedGame(true);
+				props.changeFinishGameStatus('inactive');
 				setTimeout(() => {
 					lost.current.classList.add(style.visible);
 				}, 1500);
@@ -294,6 +307,7 @@ const Game = (props) => {
 		props.changeGameStatus('active');
 		props.changeSettingsStatus('active');
 		props.changeRecordsStatus('active');
+		props.changeFinishGameStatus('active');
 		props.changeGameStatusControl('finished');
 		clearInterval(start);
 		props.setFieldStatus(false);
@@ -309,7 +323,7 @@ const Game = (props) => {
 			{disableField
 				? (
 					<div className={style.startingTheGame}>
-						<div className={style.needClickToStart}><h2>Click start the game</h2></div>
+						<div className={style.needClickToStart}><h2>{phrases.clickToStart}</h2></div>
 						<Button className={style.startTheGame} onClick={startTheGame} variant="contained" color={color}>
 							<h4>{phrases.startGame}</h4>
 						</Button>
@@ -347,7 +361,7 @@ const Game = (props) => {
 							>
 								{phrases.autoVictory}
 							</Button>
-							<NavLink to="/game">
+							<NavLink className={finishGameBtn === 'inactive' ? style.disableLink : null} to="/game">
 								<Button className={style.finishBtn} onClick={finishTheGame} variant="contained">
 									{phrases.finishTheGame}
 								</Button>

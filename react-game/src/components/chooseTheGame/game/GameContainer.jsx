@@ -1,16 +1,27 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { changeGameStatusControl, finishedGame, setFieldStatus, winnerGame } from '../../../redux/gameReducer';
-import { setOpenCells, setOpenCellsHacked, setOpenCellsHackedToZero } from '../../../redux/currentGameStatisticReducer';
+import {
+	changeGameStatusControl,
+	finishedGame,
+	setFieldStatus,
+	winnerGame
+} from '../../../redux/gameReducer';
+import { setOpenCells, setOpenCellsHacked } from '../../../redux/currentGameStatisticReducer';
 import Game from './Game';
 import { setAngryDragon, setFriendDragon } from '../../../redux/chooseTheDragonReducer';
 import {
 	changeAboutGameStatus,
 	changeAutoGameStatus,
-	changeAutoWinGameStatus, changeGameStatus, changeRecordsStatus,
+	changeAutoWinGameStatus,
+	changeGameStatus,
+	changeRecordsStatus,
 	changeSettingsStatus,
-	changeShowBombsBtnStatus
+	changeShowBombsBtnStatus,
+	changeFinishGameStatus,
 } from '../../../redux/buttonsReducer';
+import { changeSoundVolume } from '../../../redux/soundReducer';
+import { setEng, setRus } from '../../../redux/changeLanguageReducer';
+import { toggleMode } from '../../../redux/styleModeReducer';
 
 const GameDataInfo = (props) => {
 	useEffect(() => {
@@ -23,7 +34,26 @@ const GameDataInfo = (props) => {
 			const dragonValue = JSON.parse(localStorage.getItem('angryDragon'));
 			props.setAngryDragon(dragonValue);
 		}
-	});
+
+		if (localStorage.getItem('soundVolume')) {
+			const sound = JSON.parse(localStorage.getItem('soundVolume'));
+			props.changeSoundVolume(sound);
+		}
+
+		if (localStorage.getItem('gameLanguage')) {
+			const lang = JSON.parse(localStorage.getItem('gameLanguage'));
+			if (lang === 'rus') {
+				props.setRus();
+			} else {
+				props.setEng();
+			}
+		}
+
+		if (localStorage.getItem('gameMode')) {
+			const mode = JSON.parse(localStorage.getItem('gameMode'));
+			props.toggleMode(mode);
+		}
+	}, []);
 
 	return <Game {...props} />;
 };
@@ -39,6 +69,7 @@ const mapStateToProps = (state) => ({
 	showBombsBtn: state.buttonsHandler.showBombsBtn,
 	autoGameBtn: state.buttonsHandler.autoGameBtn,
 	autoWinBtn: state.buttonsHandler.autoWinBtn,
+	finishGameBtn: state.buttonsHandler.finishGameBtn,
 	mode: state.styleMode.mode,
 	language: state.changeLang,
 	gameStatus: state.gamePage.gameStatus,
@@ -58,8 +89,13 @@ const GameContainer = connect(mapStateToProps, {
 	changeGameStatus,
 	changeRecordsStatus,
 	changeSettingsStatus,
+	changeFinishGameStatus,
 	changeGameStatusControl,
 	setOpenCellsHacked,
+	changeSoundVolume,
+	setEng,
+	setRus,
+	toggleMode,
 })(GameDataInfo);
 
 export default GameContainer;

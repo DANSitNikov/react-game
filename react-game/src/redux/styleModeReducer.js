@@ -16,9 +16,12 @@ const styleModeReducer = (state = initialState, action) => {
 	}
 };
 
-export const toggleMode = (mode) => ({
-	type: TOGGLE_MODE,
-	mode,
-});
+export const toggleMode = (mode) => {
+	localStorage.setItem('gameMode', JSON.stringify(mode));
+	return {
+		type: TOGGLE_MODE,
+		mode,
+	}
+};
 
 export default styleModeReducer;

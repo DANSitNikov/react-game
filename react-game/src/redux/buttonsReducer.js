@@ -5,6 +5,7 @@ const TOGGLE_ABOUT_GAME_STATUS = 'TOGGLE_ABOUT_GAME_STATUS';
 const TOGGLE_GAME_STATUS = 'TOGGLE_GAME_STATUS';
 const TOGGLE_RECORDS_STATUS = 'TOGGLE_RECORDS_STATUS';
 const TOGGLE_SETTINGS_STATUS = 'TOGGLE_SETTINGS_STATUS';
+const TOGGLE_FINISH_STATUS = 'TOGGLE_FINISH_STATUS';
 
 const initialState = {
 	showBombsBtn: 'active',
@@ -14,6 +15,7 @@ const initialState = {
 	gameBtn: 'active',
 	recordsBtn: 'active',
 	settingsBtn: 'active',
+	finishGameBtn: 'active',
 };
 
 const buttonsReducer = (state = initialState, action) => {
@@ -53,6 +55,11 @@ const buttonsReducer = (state = initialState, action) => {
 			...state,
 			settingsBtn: action.status,
 		};
+		case TOGGLE_FINISH_STATUS:
+			return {
+				...state,
+				finishGameBtn: action.status,
+			}
 	default:
 		return state;
 	}
@@ -90,6 +97,11 @@ export const changeRecordsStatus = (status) => ({
 
 export const changeSettingsStatus = (status) => ({
 	type: TOGGLE_SETTINGS_STATUS,
+	status,
+});
+
+export const changeFinishGameStatus = (status) => ({
+	type: TOGGLE_FINISH_STATUS,
 	status,
 });
 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Button from '@material-ui/core/Button';
 import FullscreenIcon from '@material-ui/icons/Fullscreen';import style from './fullscreen.module.scss';
 import FullscreenExitIcon from '@material-ui/icons/FullscreenExit';
@@ -6,6 +6,14 @@ import FullscreenExitIcon from '@material-ui/icons/FullscreenExit';
 const FullScreen = (props) => {
 	const { status } = props;
 	const [zoom] = useState();
+
+	useEffect(() => {
+		document.addEventListener("fullscreenchange", function() {
+			if (!document.fullscreenElement) {
+				props.setFullScreenStatus(false);
+			}
+		});
+	}, []);
 
 	const setSize = () => {
 		if (!document.fullscreenElement) {

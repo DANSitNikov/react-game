@@ -103,7 +103,6 @@ export const createBombs = (number) => {
 };
 
 export const createGameData = (target, number, bombs) => {
-	console.log(typeof target);
 	const item = typeof target === 'number'
 		? target
 		: Number(target.id.split('-')[1]);

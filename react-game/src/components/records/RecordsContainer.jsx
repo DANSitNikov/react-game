@@ -4,6 +4,8 @@ import Records from './Records';
 import {
 	setAverageLevel, setEasyLevel, setHardLevel, setImpossibleLevel,
 } from '../../redux/recordsReducer';
+import { setEng, setRus } from '../../redux/changeLanguageReducer';
+import { toggleMode } from '../../redux/styleModeReducer';
 
 const RecordsGetData = (props) => {
 	useEffect(() => {
@@ -11,6 +13,20 @@ const RecordsGetData = (props) => {
 		props.setAverageLevel(JSON.parse(localStorage.getItem('recordaverage')));
 		props.setHardLevel(JSON.parse(localStorage.getItem('recordhard')));
 		props.setImpossibleLevel(JSON.parse(localStorage.getItem('recordimpossible')));
+
+		if (localStorage.getItem('gameLanguage')) {
+			const lang = JSON.parse(localStorage.getItem('gameLanguage'));
+			if (lang === 'rus') {
+				props.setRus();
+			} else {
+				props.setEng();
+			}
+		}
+
+		if (localStorage.getItem('gameMode')) {
+			const mode = JSON.parse(localStorage.getItem('gameMode'));
+			props.toggleMode(mode);
+		}
 	}, []);
 
 	return <Records {...props} />;
@@ -29,6 +45,9 @@ const RecordsContainer = connect(mapStateToProps, {
 	setAverageLevel,
 	setHardLevel,
 	setImpossibleLevel,
+	setRus,
+	setEng,
+	toggleMode,
 })(RecordsGetData);
 
 export default RecordsContainer;

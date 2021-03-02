@@ -13,6 +13,7 @@ import friendlyTwo from '../../assets/images/svgIcons/otherFriendlyDragon.svg';
 import angryOne from '../../assets/images/svgIcons/angryDragon.svg';
 import angryTwo from '../../assets/images/svgIcons/otherAngryDragon.svg';
 import { setLocalAngryDragon, setLocalFriendDragon } from '../../redux/chooseTheDragonReducer';
+import { setLanguage } from '../../redux/changeLanguageReducer';
 
 const Settings = (props) => {
 	const {
@@ -97,10 +98,24 @@ const Settings = (props) => {
 		}
 	});
 
+	const setLanguageToStorage = () => {
+		if (lang.langStatus === 'rus') {
+			setEng();
+			setLanguage('eng');
+		} else {
+			setRus();
+			setLanguage('rus');
+		}
+	};
+
+	const chooseMode = () => {
+		toggleMode(`${mode === 'friendly' ? 'danger' : 'friendly'}`)
+	};
+
 	return (
 		<div className={style.settings}>
-			<Button variant="contained" color={color} onClick={lang.langStatus === 'rus' ? setEng : setRus}><h5>{element.changeLang}</h5></Button>
-			<Button variant="contained" color={color} onClick={() => toggleMode(`${mode === 'friendly' ? 'danger' : 'friendly'}`)}><h5>{element.changeTheme}</h5></Button>
+			<Button variant="contained" color={color} onClick={setLanguageToStorage}><h5>{element.changeLang}</h5></Button>
+			<Button variant="contained" color={color} onClick={chooseMode}><h5>{element.changeTheme}</h5></Button>
 			<div>
 				<Typography gutterBottom>
 					<h4>{element.musicVolume}</h4>
