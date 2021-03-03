@@ -9,9 +9,8 @@ const initialState = {
 			recordsHeader: 'Рекорды',
 			aboutGameHeader: 'Об игре',
 			aboutGameContent: {
-				header: 'Сапер: улучшенная версия',
-				body: `Удивительный мир the elder scrolls V: Skyrim скрывает в себе много тайн. Это удивительный мир, он полон приключений, опасностей и неожиданных встреч. Но чтобы узнать все тайны, необходимо пройти нерпростое испытание под названием "сапер" с небольшими дополнениями (ради разнообразия). После этого ты получишь книгу или даже несколько (зависит от сложности). Хочешь открыть все тайны этого удивительного мира? Тогда нажимай кнопку "начать играть", выбирай уровень и вперед за тайнами!
-				`,
+				header: 'Сапер: драгон эдишн',
+				body: 'Представляю вашему вниманию новую версию игры "Сапер". В игре есть несколько уровней сложности. Данная версия немного проще, чем оригинал, так как у игрока появляется возможность один раз посмотреть на расположение бомб (я думаю, что это просто супер способность). Ваши лучшие результаты игр сохраняются во вкладке "Рекорды". Также с помощью настроек вы можете сменить тему приложения, настроить звук, выбрать язык (английский или русский) и подобрать под себ персонажей. Удачной игры!',
 			},
 			levels: {
 				easy: 'Легко',
@@ -44,8 +43,8 @@ const initialState = {
 			recordsHeader: 'Records',
 			aboutGameHeader: 'About the game',
 			aboutGameContent: {
-				header: 'Sapper: update version',
-				body: 'The elder scrolls V: skyrim is amazing world. Here you can find so many interesting things. You can meet dragons, skelets, and other strange creatures',
+				header: 'Sapper: dragon edition',
+				body: 'Welcome to the beautiful world of "sapper" in dragon world. This game has four levels, you can chose any of them. I think my game is easier than original, because player has an opportunity to show bombs for half seconds (it\'s just like super power). Your best results are saved in "Records". In settings you can change application theme, adjust sound and music volume, choose language (english or russian) and heroes. Have a good time!',
 			},
 			levels: {
 				easy: 'Easy',

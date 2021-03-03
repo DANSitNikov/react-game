@@ -151,7 +151,7 @@ const Game = (props) => {
 				}
 			});
 			props.changeShowBombsBtnStatus('inactive');
-		}, 200);
+		}, 500);
 	};
 
 	const autoWin = () => {
@@ -369,7 +369,7 @@ const Game = (props) => {
 								{phrases.autoVictory}
 							</Button>
 							<NavLink className={finishGameBtn === 'inactive' ? style.disableLink : null} to="/game">
-								<Button className={style.finishBtn} onClick={finishTheGame} variant="contained">
+								<Button disabled={finishGameBtn === 'inactive'} className={style.finishBtn} onClick={finishTheGame} variant="contained">
 									{phrases.finishTheGame}
 								</Button>
 							</NavLink>
