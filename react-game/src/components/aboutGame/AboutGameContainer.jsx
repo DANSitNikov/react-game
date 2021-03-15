@@ -5,8 +5,6 @@ const mapStateToProps = (state) => ({
 	language: state.changeLang,
 });
 
-const mapDispatchToProps = () => ({});
-
-const AboutGameContainer = connect(mapStateToProps, mapDispatchToProps)(AboutGame);
+const AboutGameContainer = connect(mapStateToProps)(AboutGame);
 
 export default AboutGameContainer;

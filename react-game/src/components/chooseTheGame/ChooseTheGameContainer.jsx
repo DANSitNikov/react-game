@@ -6,9 +6,7 @@ import {
 import { setOpenCellsHackedToZero, setOpenCellsToZero } from '../../redux/currentGameStatisticReducer';
 import { changeAutoGameStatus, changeAutoWinGameStatus, changeShowBombsBtnStatus } from '../../redux/buttonsReducer';
 
-const mapStateToProps = () => ({});
-
-const ChooseTheGameContainer = connect(mapStateToProps, {
+const ChooseTheGameContainer = connect(null, {
 	chooseLevel,
 	setFieldStatus,
 	setOpenCellsToZero,

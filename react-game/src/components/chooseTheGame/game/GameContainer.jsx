@@ -25,33 +25,35 @@ import { toggleMode } from '../../../redux/styleModeReducer';
 
 const GameDataInfo = (props) => {
 	useEffect(() => {
-		if (localStorage.getItem('friendDragon')) {
-			const dragonValue = JSON.parse(localStorage.getItem('friendDragon'));
-			props.setFriendDragon(dragonValue);
-		}
-
-		if (localStorage.getItem('angryDragon')) {
-			const dragonValue = JSON.parse(localStorage.getItem('angryDragon'));
-			props.setAngryDragon(dragonValue);
-		}
-
-		if (localStorage.getItem('soundVolume')) {
-			const sound = JSON.parse(localStorage.getItem('soundVolume'));
-			props.changeSoundVolume(sound);
-		}
-
-		if (localStorage.getItem('gameLanguage')) {
-			const lang = JSON.parse(localStorage.getItem('gameLanguage'));
-			if (lang === 'rus') {
-				props.setRus();
-			} else {
-				props.setEng();
+		if (localStorage) {
+			if (localStorage.getItem('friendDragon')) {
+				const dragonValue = JSON.parse(localStorage.getItem('friendDragon'));
+				props.setFriendDragon(dragonValue);
 			}
-		}
 
-		if (localStorage.getItem('gameMode')) {
-			const mode = JSON.parse(localStorage.getItem('gameMode'));
-			props.toggleMode(mode);
+			if (localStorage.getItem('angryDragon')) {
+				const dragonValue = JSON.parse(localStorage.getItem('angryDragon'));
+				props.setAngryDragon(dragonValue);
+			}
+
+			if (localStorage.getItem('soundVolume')) {
+				const sound = JSON.parse(localStorage.getItem('soundVolume'));
+				props.changeSoundVolume(sound);
+			}
+
+			if (localStorage.getItem('gameLanguage')) {
+				const lang = JSON.parse(localStorage.getItem('gameLanguage'));
+				if (lang === 'rus') {
+					props.setRus();
+				} else {
+					props.setEng();
+				}
+			}
+
+			if (localStorage.getItem('gameMode')) {
+				const mode = JSON.parse(localStorage.getItem('gameMode'));
+				props.toggleMode(mode);
+			}
 		}
 	}, []);
 

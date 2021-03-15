@@ -7,20 +7,16 @@ const AboutGame = (props) => {
 
 	Object.keys(language.language).forEach((key) => {
 		if (key === language.langStatus) {
-			element = [
-				<div className={style.aboutGame}>
+			element = (
+				<div className={style.aboutGame} key={key}>
 					<h3>{props.language.language[key].aboutGameContent.header}</h3>
 					<p>{props.language.language[key].aboutGameContent.body}</p>
-				</div>,
-			];
+				</div>
+			);
 		}
 	});
 
-	return (
-		<>
-			{ element }
-		</>
-	);
+	return element;
 };
 
 export default AboutGame;

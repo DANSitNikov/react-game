@@ -14,18 +14,20 @@ const RecordsGetData = (props) => {
 		props.setHardLevel(JSON.parse(localStorage.getItem('recordhard')));
 		props.setImpossibleLevel(JSON.parse(localStorage.getItem('recordimpossible')));
 
-		if (localStorage.getItem('gameLanguage')) {
-			const lang = JSON.parse(localStorage.getItem('gameLanguage'));
-			if (lang === 'rus') {
-				props.setRus();
-			} else {
-				props.setEng();
+		if (localStorage) {
+			if (localStorage.getItem('gameLanguage')) {
+				const lang = JSON.parse(localStorage.getItem('gameLanguage'));
+				if (lang === 'rus') {
+					props.setRus();
+				} else {
+					props.setEng();
+				}
 			}
-		}
 
-		if (localStorage.getItem('gameMode')) {
-			const mode = JSON.parse(localStorage.getItem('gameMode'));
-			props.toggleMode(mode);
+			if (localStorage.getItem('gameMode')) {
+				const mode = JSON.parse(localStorage.getItem('gameMode'));
+				props.toggleMode(mode);
+			}
 		}
 	}, []);
 

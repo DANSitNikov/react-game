@@ -38,22 +38,22 @@ const Header = (props) => {
 	Object.keys(language.language).forEach((key) => {
 		if (key === props.language.langStatus) {
 			element = [
-				<NavLink onClick={handleClose} to={aboutGameBtn === 'active' ? '/aboutGame' : '#'} activeClassName={style.active}>
+				<NavLink key={`${key}about`} onClick={handleClose} to={aboutGameBtn === 'active' ? '/about-game' : '#'} activeClassName={style.active}>
 					<Button disabled={aboutGameBtn !== 'active'} variant="contained" color={color}>
 						{props.language.language[key].aboutGameHeader}
 					</Button>
 				</NavLink>,
-				<NavLink onClick={handleClose} to={gameBtn === 'active' ? '/game' : '#'} activeClassName={style.active}>
+				<NavLink key={`${key}start`} onClick={handleClose} to={gameBtn === 'active' ? '/game' : '#'} activeClassName={style.active}>
 					<Button disabled={gameBtn !== 'active'} variant="contained" color={color}>
 						{props.language.language[key].startTheGameHeader}
 					</Button>
 				</NavLink>,
-				<NavLink onClick={handleClose} to={recordsBtn === 'active' ? '/records' : '#'} activeClassName={style.active}>
+				<NavLink key={`${key}record`} onClick={handleClose} to={recordsBtn === 'active' ? '/records' : '#'} activeClassName={style.active}>
 					<Button disabled={recordsBtn !== 'active'} variant="contained" color={color}>
 						{props.language.language[key].recordsHeader}
 					</Button>
 				</NavLink>,
-				<NavLink onClick={handleClose} to={settingsBtn === 'active' ? '/settings' : '#'} activeClassName={style.active}>
+				<NavLink key={`${key}settings`} onClick={handleClose} to={settingsBtn === 'active' ? '/settings' : '#'} activeClassName={style.active}>
 					<Button disabled={settingsBtn !== 'active'} variant="contained" color={color}>
 						{props.language.language[key].settingsHeader}
 					</Button>
