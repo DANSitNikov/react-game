@@ -10,15 +10,29 @@ import {
 import TimerContainer from '../../timer/TimerContainer';
 import OpenCellsContainer from '../../openCells/OpenCellsContainer';
 import friendlyDragon from '../../../assets/sounds/friendlydragon.mp3';
+import { useSelector } from 'react-redux';
+import {
+	getBombHero,
+	getCurrentLanguage,
+	getFriendHero,
+	getModeStyle,
+	getOpenCellsHacked
+} from '../../../selectors/selectors';
 
 const Game = (props) => {
 	const {
 		disableField, openCells,
 		finishedGame, winnerGame, soundVolume,
-		friend, bomb, showBombsBtn,
-		autoGameBtn, autoWinBtn, mode,
-		language, openCellsHacked, finishGameBtn,
+		showBombsBtn,
+		autoGameBtn, autoWinBtn,
+		finishGameBtn,
 	} = props;
+
+	const language = useSelector(getCurrentLanguage);
+	const mode = useSelector(getModeStyle);
+	const friend = useSelector(getFriendHero);
+	const bomb = useSelector(getBombHero);
+	const openCellsHacked = useSelector(getOpenCellsHacked);
 
 	let { number } = props;
 

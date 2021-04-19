@@ -10,7 +10,7 @@ const initialState = {
 	impossibleLevel: [],
 };
 
-const recordsReducer = (state = initialState, action) => {
+const recordsReducer = (state = initialState, action: any) => {
 	switch (action.type) {
 	case SET_EASY_LEVEL_RECORDS:
 		return {
@@ -37,22 +37,48 @@ const recordsReducer = (state = initialState, action) => {
 	}
 };
 
-export const setEasyLevel = (record) => ({
+type Record = {
+	m: number
+	s: number
+	ml: number
+}
+
+type EasyLevel = {
+	type: typeof SET_EASY_LEVEL_RECORDS,
+	record: Array<Record>,
+}
+
+export const setEasyLevel = (record: Array<Record>): EasyLevel => ({
 	type: SET_EASY_LEVEL_RECORDS,
 	record,
 });
 
-export const setAverageLevel = (record) => ({
+type AverageLevel = {
+	type: typeof SET_AVERAGE_LEVEL_RECORDS,
+	record: Array<Record>,
+}
+
+export const setAverageLevel = (record: Array<Record>): AverageLevel => ({
 	type: SET_AVERAGE_LEVEL_RECORDS,
 	record,
 });
 
-export const setHardLevel = (record) => ({
+type HardLevel = {
+	type: typeof SET_HARD_LEVEL_RECORDS,
+	record: Array<Record>,
+}
+
+export const setHardLevel = (record: Array<Record>): HardLevel => ({
 	type: SET_HARD_LEVEL_RECORDS,
 	record,
 });
 
-export const setImpossibleLevel = (record) => ({
+type ImpossibleLevel = {
+	type: typeof SET_IMPOSSIBLE_LEVEL_RECORDS,
+	record: Array<Record>,
+}
+
+export const setImpossibleLevel = (record: Array<Record>): ImpossibleLevel => ({
 	type: SET_IMPOSSIBLE_LEVEL_RECORDS,
 	record,
 });

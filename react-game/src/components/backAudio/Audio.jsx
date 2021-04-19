@@ -3,9 +3,12 @@ import ReactHowler from 'react-howler';
 import { usePageVisibility } from 'react-page-visibility';
 import musicF from '../../assets/sounds/home.mp3';
 import musicD from '../../assets/sounds/horror.mp3';
+import { useSelector } from 'react-redux';
+import { getModeStyle, getMusicValue } from '../../selectors/selectors';
 
-const AudioCreator = (props) => {
-	const { mode, music } = props;
+const AudioCreator = () => {
+	const mode = useSelector(getModeStyle);
+	const music = useSelector(getMusicValue);
 	const musicSrc = mode === 'friendly' ? musicF : musicD;
 	const audio = React.createRef();
 	const isVisible = usePageVisibility();

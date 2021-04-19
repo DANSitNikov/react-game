@@ -3,8 +3,10 @@ import Slider from '@material-ui/core/Slider';
 import Typography from '@material-ui/core/Typography';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import Button from '@material-ui/core/Button';
+import { useDispatch, useSelector } from 'react-redux';
 import style from './settings.module.scss';
 import {
+	changeMusicVolume, changeSoundVolume,
 	setLocalMusicVolume,
 	setLocalSoundVolume,
 } from '../../redux/soundReducer';
@@ -12,41 +14,62 @@ import friendlyOne from '../../assets/images/svgIcons/friendlyDragon.svg';
 import friendlyTwo from '../../assets/images/svgIcons/otherFriendlyDragon.svg';
 import angryOne from '../../assets/images/svgIcons/angryDragon.svg';
 import angryTwo from '../../assets/images/svgIcons/otherAngryDragon.svg';
-import { setLocalAngryDragon, setLocalFriendDragon } from '../../redux/chooseTheDragonReducer';
-import { setLanguage } from '../../redux/changeLanguageReducer';
+import {
+	setFriendDragon,
+	setAngryDragon,
+	setLocalAngryDragon,
+	setLocalFriendDragon,
+} from '../../redux/chooseTheDragonReducer';
+import { setEng, setLanguage, setRus } from '../../redux/changeLanguageReducer';
+import {
+	getBombHero,
+	getCurrentLanguage,
+	getFriendHero,
+	getModeStyle,
+	getMusicValue,
+	getSoundValue,
+} from '../../selectors/selectors';
+import { toggleMode } from '../../redux/styleModeReducer';
 
-const Settings = (props) => {
-	const {
-		lang, setEng, setRus,
-		toggleMode, mode, sound,
-		music, changeMusicVolume,
-		changeSoundVolume, bomb,
-		friend, setFriendDragon,
-		setAngryDragon,
-	} = props;
+type Element = {
+	changeLang?: string,
+	changeTheme?: string,
+	chooseCharacter?: string | boolean,
+	musicVolume?: number,
+	soundVolume?: number,
+}
+
+const Settings = () => {
+	const friend = useSelector(getFriendHero);
+	const bomb = useSelector(getBombHero);
+	const lang = useSelector(getCurrentLanguage);
+	const mode = useSelector(getModeStyle);
+	const music = useSelector(getMusicValue);
+	const sound = useSelector(getSoundValue);
+	const dispatch = useDispatch();
 
 	const color = mode === 'friendly' ? 'primary' : 'secondary';
 
 	const [valueMusic, setValueMusic] = React.useState(music);
 	const [valueSound, setValueSound] = React.useState(sound);
 
-	const friendlyDragon = React.createRef();
-	const angryDragon = React.createRef();
+	const friendlyDragon = React.createRef<HTMLDivElement>();
+	const angryDragon = React.createRef<HTMLDivElement>();
 
 	useEffect(() => {
 		setValueMusic(music);
 		setValueSound(sound);
 	});
 
-	const handleChangeMusic = (event, newValue) => {
+	const handleChangeMusic = (event: any, newValue: number | number[]) => {
 		setValueMusic(newValue);
-		changeMusicVolume(newValue);
+		dispatch(changeMusicVolume(newValue));
 		setLocalMusicVolume(valueMusic);
 	};
 
-	const handleChangeSound = (event, newValue) => {
+	const handleChangeSound = (event: any, newValue: number | number[]) => {
 		setValueSound(newValue);
-		changeSoundVolume(newValue);
+		dispatch(changeSoundVolume(newValue));
 		setLocalSoundVolume(newValue);
 	};
 
@@ -60,10 +83,10 @@ const Settings = (props) => {
 		setOpen(false);
 	};
 
-	const chooseBomb = (e) => {
-		setAngryDragon(!bomb);
+	const chooseBomb = (e: any) => {
+		dispatch(setAngryDragon(!bomb));
 		setLocalAngryDragon(!bomb);
-		[...angryDragon.current.children].forEach((dragon) => {
+		[...angryDragon.current!.children].forEach((dragon) => {
 			if (e.target === dragon) {
 				dragon.classList.add(style.activeAngry);
 			} else {
@@ -72,10 +95,10 @@ const Settings = (props) => {
 		});
 	};
 
-	const chooseFriend = (e) => {
-		setFriendDragon(!friend);
+	const chooseFriend = (e: any) => {
+		dispatch(setFriendDragon(!friend));
 		setLocalFriendDragon(!friend);
-		[...friendlyDragon.current.children].forEach((dragon) => {
+		[...friendlyDragon.current!.children].forEach((dragon) => {
 			if (e.target === dragon) {
 				dragon.classList.add(style.activeFriend);
 			} else {
@@ -84,32 +107,32 @@ const Settings = (props) => {
 		});
 	};
 
-	let element = {};
+	let element: Element = {};
 
 	Object.keys(lang.language).forEach((key) => {
-		if (key === props.lang.langStatus) {
+		if (key === lang.langStatus) {
 			element = {
-				changeLang: props.lang.language[key].settings.changeLang,
-				changeTheme: props.lang.language[key].settings.changeTheme,
-				chooseCharacter: props.lang.language[key].settings.chooseCharacter,
-				musicVolume: props.lang.language[key].settings.musicVolume,
-				soundVolume: props.lang.language[key].settings.soundVolume,
+				changeLang: lang.language[key].settings.changeLang,
+				changeTheme: lang.language[key].settings.changeTheme,
+				chooseCharacter: lang.language[key].settings.chooseCharacter,
+				musicVolume: lang.language[key].settings.musicVolume,
+				soundVolume: lang.language[key].settings.soundVolume,
 			};
 		}
 	});
 
 	const setLanguageToStorage = () => {
 		if (lang.langStatus === 'rus') {
-			setEng();
+			dispatch(setEng());
 			setLanguage('eng');
 		} else {
-			setRus();
+			dispatch(setRus());
 			setLanguage('rus');
 		}
 	};
 
 	const chooseMode = () => {
-		toggleMode(`${mode === 'friendly' ? 'danger' : 'friendly'}`);
+		dispatch(toggleMode(`${mode === 'friendly' ? 'danger' : 'friendly'}`));
 	};
 
 	return (

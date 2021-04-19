@@ -5,14 +5,16 @@ const SET_OPEN_CELLS_HACKED_TO_ZERO = 'SET_OPEN_CELLS_HACKED_TO_ZERO';
 const SET_OPEN_CELLS_TO_ZERO = 'SET_OPEN_CELLS_TO_ZERO';
 
 const initialState = {
-	seconds: 0,
-	openCells: 0,
-	openCellsHacked: 0,
-	recordTime: 0,
-	recordLevel: 0,
+	seconds: 0 as number,
+	openCells: 0 as number,
+	openCellsHacked: 0 as number,
+	recordTime: 0 as number,
+	recordLevel: 0 as number,
 };
 
-const currentGameStatisticReducer = (state = initialState, action) => {
+type initialStateType = typeof initialState;
+
+const currentGameStatisticReducer = (state = initialState, action: any): initialStateType => {
 	switch (action.type) {
 	case SET_SECONDS:
 		return {
@@ -44,21 +46,40 @@ const currentGameStatisticReducer = (state = initialState, action) => {
 	}
 };
 
-export const setSeconds = (newSeconds) => ({
+type setSecondsType = {
+	type: typeof SET_SECONDS,
+	newSeconds: number,
+}
+
+export const setSeconds = (newSeconds: number):setSecondsType => ({
 	type: SET_SECONDS,
 	newSeconds,
 });
 
-export const setOpenCells = (newOpenCells) => ({
+type setOpenCellsType = {
+	type: typeof SET_OPEN_CELLS,
+	newOpenCells: number,
+}
+
+export const setOpenCells = (newOpenCells: number): setOpenCellsType => ({
 	type: SET_OPEN_CELLS,
 	newOpenCells,
 });
 
-export const setOpenCellsToZero = () => ({
+type setOpenCellsToZeroType = {
+	type: typeof SET_OPEN_CELLS_TO_ZERO,
+}
+
+export const setOpenCellsToZero = ():setOpenCellsToZeroType => ({
 	type: SET_OPEN_CELLS_TO_ZERO,
 });
 
-export const setOpenCellsHacked = (newOpenCellsHacked) => ({
+type setOpenCellsHackedType = {
+	type: typeof SET_OPEN_CELLS_HACKED,
+	newOpenCellsHacked: number,
+}
+
+export const setOpenCellsHacked = (newOpenCellsHacked: number):setOpenCellsHackedType => ({
 	type: SET_OPEN_CELLS_HACKED,
 	newOpenCellsHacked,
 });
@@ -67,20 +88,26 @@ export const setOpenCellsHackedToZero = () => ({
 	type: SET_OPEN_CELLS_HACKED_TO_ZERO,
 });
 
-const checkStatistic = (time, level) => {
+type sortStatistic = {
+	ml: number,
+	s: number,
+	m: number
+}
+
+const checkStatistic = (time: number, level: string) => {
 	if (!localStorage.getItem(`record${level}`)) {
 		localStorage.setItem(`record${level}`, JSON.stringify([time]));
 	} else {
-		const arrResult = JSON.parse(localStorage.getItem(`record${level}`));
+		const arrResult = JSON.parse(localStorage.getItem(`record${level}`)!);
 		arrResult.push(time);
-		const sorted = arrResult.sort((a, b) => (a.ml - b.ml && a.s - b.s
+		const sorted = arrResult.sort((a: sortStatistic, b: sortStatistic) => (a.ml - b.ml && a.s - b.s
 			&& a.m - b.m) || (a.ml - b.ml && a.s - b.s) || a.ml - b.ml);
 		if (sorted.length > 10) sorted.pop();
 		localStorage.setItem(`record${level}`, JSON.stringify(sorted));
 	}
 };
 
-export const setStatistic = (time, level) => {
+export const setStatistic = (time: number, level: number) => {
 	switch (level) {
 	case 25:
 		return checkStatistic(time, 'easy');

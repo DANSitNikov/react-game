@@ -6,21 +6,30 @@ const FINISHED_GAME = 'FINISHED_GAME';
 const VICTORY_GAME = 'VICTORY_GAME';
 const CHANGE_GAME_STATUS = 'CHANGE_GAME_STATUS';
 
+type Levels = {
+	easyLvl: number,
+	averageLvl: number,
+	hardLvl: number,
+	impossible: number,
+}
+
 const initialState = {
 	levels: {
 		easyLvl: 25,
 		averageLvl: 36,
 		hardLvl: 45,
 		impossible: 81,
-	},
-	chosenLevel: 0,
-	disableField: true,
-	finishedGame: false,
-	victoryGame: false,
-	gameStatus: 'started',
+	} as Levels,
+	chosenLevel: 0 as number,
+	disableField: true as boolean,
+	finishedGame: false as boolean,
+	victoryGame: false as boolean,
+	gameStatus: 'started' as string,
 };
 
-const gameReducer = (state = initialState, action) => {
+type InitialStateType = typeof initialState;
+
+const gameReducer = (state = initialState, action: any):InitialStateType => {
 	switch (action.type) {
 	case CHOOSE_LEVEL:
 		return {
@@ -52,32 +61,57 @@ const gameReducer = (state = initialState, action) => {
 	}
 };
 
-export const chooseLevel = (level) => ({
+type ChooseLevel = {
+	type: typeof CHOOSE_LEVEL,
+	level: number,
+}
+
+export const chooseLevel = (level: number): ChooseLevel => ({
 	type: CHOOSE_LEVEL,
 	level,
 });
 
-export const setFieldStatus = (status) => ({
+type SetFieldStatus = {
+	type: typeof SET_FIELD_STATUS,
+	status: boolean,
+}
+
+export const setFieldStatus = (status: boolean): SetFieldStatus => ({
 	type: SET_FIELD_STATUS,
 	status,
 });
 
-export const finishedGame = (status) => ({
+type FinishedGame = {
+	type: typeof FINISHED_GAME,
+	status: boolean,
+}
+
+export const finishedGame = (status:boolean): FinishedGame => ({
 	type: FINISHED_GAME,
 	status,
 });
 
-export const winnerGame = (status) => ({
+type WinnerGame = {
+	type: typeof VICTORY_GAME,
+	status: boolean,
+}
+
+export const winnerGame = (status: boolean): WinnerGame => ({
 	type: VICTORY_GAME,
 	status,
 });
 
-export const changeGameStatusControl = (status) => ({
+type ChangeGameStatusControl = {
+	type: typeof CHANGE_GAME_STATUS,
+	status: boolean,
+}
+
+export const changeGameStatusControl = (status: boolean): ChangeGameStatusControl => ({
 	type: CHANGE_GAME_STATUS,
 	status,
 });
 
-export const createElement = (number) => {
+export const createElement = (number: number) => {
 	const element = [];
 
 	for (let i = 0; i < number; i += 1) {
@@ -87,8 +121,8 @@ export const createElement = (number) => {
 	return element;
 };
 
-export const createBombs = (number) => {
-	const bombs = [];
+export const createBombs = (number: number) => {
+	const bombs: Array<number> = [];
 
 	for (let i = 0; i < Math.ceil((number / 100) * 15); i += 1) {
 		const addNum = Math.round(Math.random() * (number - 1)) + 1;
@@ -102,7 +136,7 @@ export const createBombs = (number) => {
 	return bombs;
 };
 
-export const createGameData = (target, number, bombs) => {
+export const createGameData = (target: any, number: number, bombs: Array<number>) => {
 	const item = typeof target === 'number'
 		? target
 		: Number(target.id.split('-')[1]);
@@ -150,7 +184,7 @@ export const createGameData = (target, number, bombs) => {
 	};
 };
 
-export const bombsIncludes = (gameField, bombs, bomb) => {
+export const bombsIncludes = (gameField: any, bombs: Array<number>, bomb: number) => {
 	[...gameField.current.children].forEach((button) => {
 		const btnDisabled = button;
 		btnDisabled.disabled = true;
@@ -164,7 +198,7 @@ export const bombsIncludes = (gameField, bombs, bomb) => {
 	});
 };
 
-export const friendIncludes = (btnText, friend, target) => {
+export const friendIncludes = (btnText: number, friend: boolean, target: any) => {
 	const currentTarget = target;
 
 	if (btnText !== 0) {
@@ -180,7 +214,7 @@ export const friendIncludes = (btnText, friend, target) => {
 	}
 };
 
-export const disableAllBtns = (gameField) => {
+export const disableAllBtns = (gameField: any) => {
 	[...gameField.current.children].forEach((button) => {
 		const btnDisabled = button;
 		btnDisabled.disabled = true;

@@ -1,10 +1,12 @@
 const TOGGLE_MODE = 'TOGGLE_MODE';
 
 const initialState = {
-	mode: 'friendly',
+	mode: 'friendly' as string,
 };
 
-const styleModeReducer = (state = initialState, action) => {
+type InitialState = typeof initialState;
+
+const styleModeReducer = (state = initialState, action: any): InitialState => {
 	switch (action.type) {
 	case TOGGLE_MODE:
 		return {
@@ -16,7 +18,12 @@ const styleModeReducer = (state = initialState, action) => {
 	}
 };
 
-export const toggleMode = (mode) => {
+type Mode = {
+	type: typeof TOGGLE_MODE,
+	mode: string,
+}
+
+export const toggleMode = (mode: string): Mode => {
 	localStorage.setItem('gameMode', JSON.stringify(mode));
 	return {
 		type: TOGGLE_MODE,

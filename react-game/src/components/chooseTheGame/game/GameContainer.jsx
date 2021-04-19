@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { connect } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
 import {
 	changeGameStatusControl,
 	finishedGame,
@@ -24,35 +24,37 @@ import { setEng, setRus } from '../../../redux/changeLanguageReducer';
 import { toggleMode } from '../../../redux/styleModeReducer';
 
 const GameDataInfo = (props) => {
+	const dispatch = useDispatch();
+
 	useEffect(() => {
 		if (localStorage) {
 			if (localStorage.getItem('friendDragon')) {
 				const dragonValue = JSON.parse(localStorage.getItem('friendDragon'));
-				props.setFriendDragon(dragonValue);
+				dispatch(setFriendDragon(dragonValue));
 			}
 
 			if (localStorage.getItem('angryDragon')) {
 				const dragonValue = JSON.parse(localStorage.getItem('angryDragon'));
-				props.setAngryDragon(dragonValue);
+				dispatch(setAngryDragon(dragonValue));
 			}
 
 			if (localStorage.getItem('soundVolume')) {
 				const sound = JSON.parse(localStorage.getItem('soundVolume'));
-				props.changeSoundVolume(sound);
+				dispatch(changeSoundVolume(sound));
 			}
 
 			if (localStorage.getItem('gameLanguage')) {
 				const lang = JSON.parse(localStorage.getItem('gameLanguage'));
 				if (lang === 'rus') {
-					props.setRus();
+					dispatch(setRus());
 				} else {
-					props.setEng();
+					dispatch(setEng());
 				}
 			}
 
 			if (localStorage.getItem('gameMode')) {
 				const mode = JSON.parse(localStorage.getItem('gameMode'));
-				props.toggleMode(mode);
+				dispatch(toggleMode(mode));
 			}
 		}
 	}, []);
