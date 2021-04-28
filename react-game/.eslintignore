@@ -3,5 +3,3 @@ node_modules
 webpack.config.js
 *.test.js
 babel.config.js
-*.js
-*.jsx

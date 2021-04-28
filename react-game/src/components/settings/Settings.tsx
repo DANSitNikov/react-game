@@ -1,26 +1,17 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Slider from '@material-ui/core/Slider';
 import Typography from '@material-ui/core/Typography';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import Button from '@material-ui/core/Button';
 import { useDispatch, useSelector } from 'react-redux';
 import style from './settings.module.scss';
-import {
-	changeMusicVolume, changeSoundVolume,
-	setLocalMusicVolume,
-	setLocalSoundVolume,
-} from '../../redux/soundReducer';
+import soundAction, { setLocalMusicVolume, setLocalSoundVolume } from '../../actions/soundAction';
 import friendlyOne from '../../assets/images/svgIcons/friendlyDragon.svg';
 import friendlyTwo from '../../assets/images/svgIcons/otherFriendlyDragon.svg';
 import angryOne from '../../assets/images/svgIcons/angryDragon.svg';
 import angryTwo from '../../assets/images/svgIcons/otherAngryDragon.svg';
-import {
-	setFriendDragon,
-	setAngryDragon,
-	setLocalAngryDragon,
-	setLocalFriendDragon,
-} from '../../redux/chooseTheDragonReducer';
-import { setEng, setLanguage, setRus } from '../../redux/changeLanguageReducer';
+import chooseTheDragonAction, { setLocalFriendDragon, setLocalAngryDragon } from '../../actions/chooseTheDragonAction';
+import changeLangAction, { setLanguage } from '../../actions/changeLangAction';
 import {
 	getBombHero,
 	getCurrentLanguage,
@@ -29,14 +20,14 @@ import {
 	getMusicValue,
 	getSoundValue,
 } from '../../selectors/selectors';
-import { toggleMode } from '../../redux/styleModeReducer';
+import styleModeAction from '../../actions/styleModeAction';
 
 type Element = {
 	changeLang?: string,
 	changeTheme?: string,
 	chooseCharacter?: string | boolean,
-	musicVolume?: number,
-	soundVolume?: number,
+	musicVolume?: any,
+	soundVolume?: any,
 }
 
 const Settings = () => {
@@ -50,8 +41,8 @@ const Settings = () => {
 
 	const color = mode === 'friendly' ? 'primary' : 'secondary';
 
-	const [valueMusic, setValueMusic] = React.useState(music);
-	const [valueSound, setValueSound] = React.useState(sound);
+	const [valueMusic, setValueMusic] = useState<number | number[]>(music);
+	const [valueSound, setValueSound] = useState<number | number[]>(sound);
 
 	const friendlyDragon = React.createRef<HTMLDivElement>();
 	const angryDragon = React.createRef<HTMLDivElement>();
@@ -63,13 +54,13 @@ const Settings = () => {
 
 	const handleChangeMusic = (event: any, newValue: number | number[]) => {
 		setValueMusic(newValue);
-		dispatch(changeMusicVolume(newValue));
+		dispatch(soundAction.changeMusicVolume(newValue));
 		setLocalMusicVolume(valueMusic);
 	};
 
 	const handleChangeSound = (event: any, newValue: number | number[]) => {
 		setValueSound(newValue);
-		dispatch(changeSoundVolume(newValue));
+		dispatch(soundAction.changeSoundVolume(newValue));
 		setLocalSoundVolume(newValue);
 	};
 
@@ -84,7 +75,7 @@ const Settings = () => {
 	};
 
 	const chooseBomb = (e: any) => {
-		dispatch(setAngryDragon(!bomb));
+		dispatch(chooseTheDragonAction.setAngryDragon(!bomb));
 		setLocalAngryDragon(!bomb);
 		[...angryDragon.current!.children].forEach((dragon) => {
 			if (e.target === dragon) {
@@ -96,7 +87,7 @@ const Settings = () => {
 	};
 
 	const chooseFriend = (e: any) => {
-		dispatch(setFriendDragon(!friend));
+		dispatch(chooseTheDragonAction.setFriendDragon(!friend));
 		setLocalFriendDragon(!friend);
 		[...friendlyDragon.current!.children].forEach((dragon) => {
 			if (e.target === dragon) {
@@ -109,30 +100,39 @@ const Settings = () => {
 
 	let element: Element = {};
 
-	Object.keys(lang.language).forEach((key) => {
-		if (key === lang.langStatus) {
+	Object.keys(lang.language).forEach(() => {
+		if (lang.langStatus === 'rus') {
 			element = {
-				changeLang: lang.language[key].settings.changeLang,
-				changeTheme: lang.language[key].settings.changeTheme,
-				chooseCharacter: lang.language[key].settings.chooseCharacter,
-				musicVolume: lang.language[key].settings.musicVolume,
-				soundVolume: lang.language[key].settings.soundVolume,
+				changeLang: lang.language.rus.settings.changeLang,
+				changeTheme: lang.language.rus.settings.changeTheme,
+				chooseCharacter: lang.language.rus.settings.chooseCharacter,
+				musicVolume: lang.language.rus.settings.musicVolume,
+				soundVolume: lang.language.rus.settings.soundVolume,
+			};
+		}
+		if (lang.langStatus === 'eng') {
+			element = {
+				changeLang: lang.language.eng.settings.changeLang,
+				changeTheme: lang.language.eng.settings.changeTheme,
+				chooseCharacter: lang.language.eng.settings.chooseCharacter,
+				musicVolume: lang.language.eng.settings.musicVolume,
+				soundVolume: lang.language.eng.settings.soundVolume,
 			};
 		}
 	});
 
 	const setLanguageToStorage = () => {
 		if (lang.langStatus === 'rus') {
-			dispatch(setEng());
+			dispatch(changeLangAction.setEng());
 			setLanguage('eng');
 		} else {
-			dispatch(setRus());
+			dispatch(changeLangAction.setRus());
 			setLanguage('rus');
 		}
 	};
 
 	const chooseMode = () => {
-		dispatch(toggleMode(`${mode === 'friendly' ? 'danger' : 'friendly'}`));
+		dispatch(styleModeAction.toggleMode(`${mode === 'friendly' ? 'danger' : 'friendly'}`));
 	};
 
 	return (

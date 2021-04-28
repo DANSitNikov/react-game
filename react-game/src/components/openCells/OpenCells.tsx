@@ -1,7 +1,12 @@
 import React from 'react';
-import { createBombs } from '../../redux/gameReducer';
+import { createBombs } from '../../actions/gameAction';
 
-const OpenCells = (props) => {
+interface Props {
+	allCells: number
+	openCells: number
+}
+
+const OpenCells: React.FC<Props> = (props) => {
 	const { allCells, openCells } = props;
 	const bombs = [...createBombs(allCells)];
 	const allCellsContent = allCells - bombs.length;

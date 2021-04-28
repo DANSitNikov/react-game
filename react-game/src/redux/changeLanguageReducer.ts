@@ -1,5 +1,5 @@
-const ENG = 'ENG';
-const RUS = 'RUS';
+import { ActionsType } from './redux-store';
+import changeLangAction from '../actions/changeLangAction';
 
 const initialState = {
 	language: {
@@ -76,15 +76,16 @@ const initialState = {
 };
 
 type initialStateType = typeof initialState;
+type ActionType = ActionsType<typeof changeLangAction>;
 
-const changeLangReducer = (state = initialState, action: any): initialStateType => {
+const changeLangReducer = (state = initialState, action: ActionType): initialStateType => {
 	switch (action.type) {
-	case RUS:
+	case 'RUS':
 		return {
 			...state,
 			langStatus: action.lang,
 		};
-	case ENG:
+	case 'ENG':
 		return {
 			...state,
 			langStatus: action.lang,
@@ -92,30 +93,6 @@ const changeLangReducer = (state = initialState, action: any): initialStateType 
 	default:
 		return state;
 	}
-};
-
-type setRusType = {
-	type: typeof RUS,
-	lang: string;
-}
-
-export const setRus = (): setRusType => ({
-	type: RUS,
-	lang: 'rus',
-});
-
-type setEngType = {
-	type: typeof ENG,
-	lang: string;
-}
-
-export const setEng = (): setEngType => ({
-	type: ENG,
-	lang: 'eng',
-});
-
-export const setLanguage = (lang: string):void => {
-	localStorage.setItem('gameLanguage', JSON.stringify(lang));
 };
 
 export default changeLangReducer;

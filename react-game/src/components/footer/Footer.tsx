@@ -1,7 +1,7 @@
 import React from 'react';
 import style from './footer.module.scss';
 
-const Footer = () => (
+const Footer: React.FC = () => (
 	<div className={style.footer}>
 		<a rel="noreferrer" target="_blank" href="https://rs.school/js/"><img width="70px" height="50px" src="https://rs.school/images/rs_school_js.svg" alt="" /></a>
 		<p>Sitnikov Daniil: 2021</p>

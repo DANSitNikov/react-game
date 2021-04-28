@@ -1,3 +1,6 @@
+import { ActionsType } from './redux-store';
+import styleModeAction from '../actions/styleModeAction';
+
 const TOGGLE_MODE = 'TOGGLE_MODE';
 
 const initialState = {
@@ -5,8 +8,9 @@ const initialState = {
 };
 
 type InitialState = typeof initialState;
+type ActionType = ActionsType<typeof styleModeAction>;
 
-const styleModeReducer = (state = initialState, action: any): InitialState => {
+const styleModeReducer = (state = initialState, action: ActionType): InitialState => {
 	switch (action.type) {
 	case TOGGLE_MODE:
 		return {
@@ -16,19 +20,6 @@ const styleModeReducer = (state = initialState, action: any): InitialState => {
 	default:
 		return state;
 	}
-};
-
-type Mode = {
-	type: typeof TOGGLE_MODE,
-	mode: string,
-}
-
-export const toggleMode = (mode: string): Mode => {
-	localStorage.setItem('gameMode', JSON.stringify(mode));
-	return {
-		type: TOGGLE_MODE,
-		mode,
-	};
 };
 
 export default styleModeReducer;

@@ -61,6 +61,8 @@
     ]
   },
   "devDependencies": {
+    "@types/react-howler": "^3.7.2",
+    "@types/react-router-dom": "^5.1.7",
     "eslint": "^7.20.0",
     "eslint-config-airbnb": "^18.2.1",
     "eslint-plugin-react": "^7.22.0"

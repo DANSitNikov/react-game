@@ -2,14 +2,14 @@ import React from 'react';
 import 'react-responsive-carousel/lib/styles/carousel.min.css'; // requires a loader
 import style from './records.module.scss';
 
-const Records = (props) => {
+const Records: React.FC<any> = (props) => {
 	const {
 		easyLevel, averageLevel,
 		hardLevel, impossibleLevel,
 		language,
 	} = props;
 
-	let element;
+	let element: Array<number> = [];
 
 	Object.keys(language.language).forEach((key) => {
 		if (key === props.language.langStatus) {
@@ -22,7 +22,7 @@ const Records = (props) => {
 		}
 	});
 
-	const content = (level) => {
+	const content = (level: string) => {
 		let data;
 
 		if (level === 'easy') {

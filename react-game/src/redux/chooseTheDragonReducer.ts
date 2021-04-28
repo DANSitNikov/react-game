@@ -1,5 +1,5 @@
-const FRIEND = 'FRIEND';
-const BOMB = 'BOMB';
+import { ActionsType } from './redux-store';
+import chooseTheDragonAction from '../actions/chooseTheDragonAction';
 
 export const initialState = {
 	friend: true as boolean,
@@ -7,15 +7,16 @@ export const initialState = {
 };
 
 type initialStateType = typeof initialState;
+type ActionType = ActionsType<typeof chooseTheDragonAction>;
 
-const chooseTheDragonReducer = (state = initialState, action: any):initialStateType => {
+const chooseTheDragonReducer = (state = initialState, action: ActionType):initialStateType => {
 	switch (action.type) {
-	case FRIEND:
+	case 'FRIEND':
 		return {
 			...state,
 			friend: action.dragon,
 		};
-	case BOMB:
+	case 'BOMB':
 		return {
 			...state,
 			bomb: action.dragon,
@@ -23,34 +24,6 @@ const chooseTheDragonReducer = (state = initialState, action: any):initialStateT
 	default:
 		return state;
 	}
-};
-
-type friend = {
-	type: typeof FRIEND,
-	dragon: boolean,
-}
-
-export const setFriendDragon = (dragon: boolean): friend => ({
-	type: FRIEND,
-	dragon,
-});
-
-type angry = {
-	type: typeof BOMB,
-	dragon: boolean,
-}
-
-export const setAngryDragon = (dragon: boolean): angry => ({
-	type: BOMB,
-	dragon,
-});
-
-export const setLocalFriendDragon = (value: boolean) => {
-	localStorage.setItem('friendDragon', JSON.stringify(value));
-};
-
-export const setLocalAngryDragon = (value: boolean) => {
-	localStorage.setItem('angryDragon', JSON.stringify(value));
 };
 
 export default chooseTheDragonReducer;

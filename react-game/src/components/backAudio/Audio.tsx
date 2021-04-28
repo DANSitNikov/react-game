@@ -1,24 +1,35 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import ReactHowler from 'react-howler';
+// @ts-ignore
 import { usePageVisibility } from 'react-page-visibility';
-import musicF from '../../assets/sounds/home.mp3';
-import musicD from '../../assets/sounds/horror.mp3';
 import { useSelector } from 'react-redux';
+// @ts-ignore
+import musicF from '../../assets/sounds/home.mp3';
+// @ts-ignore
+import musicD from '../../assets/sounds/horror.mp3';
 import { getModeStyle, getMusicValue } from '../../selectors/selectors';
 
-const AudioCreator = () => {
+const AudioCreator: React.FC = () => {
 	const mode = useSelector(getModeStyle);
 	const music = useSelector(getMusicValue);
-	const musicSrc = mode === 'friendly' ? musicF : musicD;
-	const audio = React.createRef();
+	const [musicSrc, setMusicSrc] = useState<string>(mode === 'friendly' ? musicF : musicD);
+	const audio = useRef<ReactHowler | null>(null);
 	const isVisible = usePageVisibility();
+
+	useEffect(() => {
+		if (mode === 'friendly') {
+			setMusicSrc(musicF);
+		} else {
+			setMusicSrc(musicD);
+		}
+	}, [mode]);
 
 	return (
 		<ReactHowler
 			src={musicSrc}
 			playing={!!isVisible}
-			loop={`${true}`}
-			volume={music / 100}
+			loop
+			volume={Number(music) / 100}
 			ref={audio}
 		/>
 	);

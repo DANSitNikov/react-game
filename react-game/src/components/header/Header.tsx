@@ -10,7 +10,7 @@ import style from './header.module.scss';
 import angry from '../../assets/images/backs/angryDragons.jpg';
 import friend from '../../assets/images/backs/friendlyDragons.jpg';
 
-const createBack = (mode) => {
+const createBack = (mode: string) => {
 	if (mode === 'friendly') {
 		document.body.style.backgroundImage = `url(${friend})`;
 	} else {
@@ -18,7 +18,7 @@ const createBack = (mode) => {
 	}
 };
 
-const Header = (props) => {
+const Header: React.FC<any> = (props) => {
 	const {
 		language, mode, aboutGameBtn,
 		gameBtn, recordsBtn, settingsBtn,
@@ -26,7 +26,7 @@ const Header = (props) => {
 	const [anchorEl, setAnchorEl] = React.useState(null);
 	const color = mode === 'friendly' ? 'primary' : 'secondary';
 
-	const handleClick = (event) => {
+	const handleClick = (event: any) => {
 		setAnchorEl(event.currentTarget);
 	};
 
@@ -70,7 +70,7 @@ const Header = (props) => {
 				{ element }
 			</div>
 
-			<AppBar variant="contained" color={color} className={style.buttonsPhoneMenu} position="static">
+			<AppBar variant="outlined" color={color} className={style.buttonsPhoneMenu} position="static">
 				<Toolbar>
 					<IconButton onClick={handleClick} edge="start" color="inherit" aria-label="menu">
 						<MenuIcon />
@@ -81,7 +81,7 @@ const Header = (props) => {
 			<Menu
 				id="simple-menu"
 				anchorEl={anchorEl}
-				keepmounted="true"
+				keepMounted
 				open={Boolean(anchorEl)}
 				onClose={handleClose}
 				className={style.phoneMenu}

@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { setEng, setRus } from '../../redux/changeLanguageReducer';
-import { toggleMode } from '../../redux/styleModeReducer';
-import { changeMusicVolume, changeSoundVolume } from '../../redux/soundReducer';
-import { setAngryDragon, setFriendDragon } from '../../redux/chooseTheDragonReducer';
+import changeLangAction from '../../actions/changeLangAction';
+import styleModeAction from '../../actions/styleModeAction';
+import soundAction from '../../actions/soundAction';
+import chooseTheDragonAction from '../../actions/chooseTheDragonAction';
 import Settings from './Settings';
 
 const SettingsContainer = () => {
@@ -13,36 +13,36 @@ const SettingsContainer = () => {
 		if (localStorage) {
 			if (localStorage.getItem('musicVolume')) {
 				const music: number = JSON.parse(localStorage.getItem('musicVolume')!);
-				dispatch(changeMusicVolume(music));
+				dispatch(soundAction.changeMusicVolume(music));
 			}
 
 			if (localStorage.getItem('soundVolume')) {
 				const sound: number = JSON.parse(localStorage.getItem('soundVolume')!);
-				dispatch(changeSoundVolume(sound));
+				dispatch(soundAction.changeSoundVolume(sound));
 			}
 
 			if (localStorage.getItem('friendDragon')) {
 				const dragonValue: boolean = JSON.parse(localStorage.getItem('friendDragon')!);
-				dispatch(setFriendDragon(dragonValue));
+				dispatch(chooseTheDragonAction.setFriendDragon(dragonValue));
 			}
 
 			if (localStorage.getItem('angryDragon')) {
 				const dragonValue: boolean = JSON.parse(localStorage.getItem('angryDragon')!);
-				dispatch(setAngryDragon(dragonValue));
+				dispatch(chooseTheDragonAction.setAngryDragon(dragonValue));
 			}
 
 			if (localStorage.getItem('gameLanguage')) {
 				const lang: string = JSON.parse(localStorage.getItem('gameLanguage')!);
 				if (lang === 'rus') {
-					dispatch(setRus());
+					dispatch(changeLangAction.setRus());
 				} else {
-					dispatch(setEng());
+					dispatch(changeLangAction.setEng());
 				}
 			}
 
 			if (localStorage.getItem('gameMode')) {
 				const mode: string = JSON.parse(localStorage.getItem('gameMode')!);
-				dispatch(toggleMode(mode));
+				dispatch(styleModeAction.toggleMode(mode));
 			}
 		}
 	}, []);

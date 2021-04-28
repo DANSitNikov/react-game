@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { setStatistic } from '../../redux/currentGameStatisticReducer';
+import { setStatistic } from '../../actions/currentGameStatisticAction';
 
-const Timer = (props) => {
+const Timer: React.FC<any> = (props) => {
 	const [time, setTime] = useState({ ml: 0, s: 0, m: 0 });
-	const [intervalID, setIntervalID] = useState();
+	const [intervalID, setIntervalID] = useState<any>();
 	const { finishedGame, number, victoryGame } = props;
 	let updatedS = time.s;
 	let updatedM = time.m;

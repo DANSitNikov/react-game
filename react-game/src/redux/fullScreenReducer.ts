@@ -1,17 +1,19 @@
-const SET_FULL_SCREEN_STATUS = 'SET_FULL_SCREEN_STATUS';
+import { ActionsType } from './redux-store';
+import fullscreenAction from '../actions/fullscreenAction';
 
 const initialState = {
 	full: false as boolean,
 };
 
 type initialStateType = typeof initialState;
+type ActionType = ActionsType<typeof fullscreenAction>;
 
 const fullScreenReducer = (
 	state = initialState,
-	action: {type: string, status: boolean},
+	action: ActionType,
 ):initialStateType => {
 	switch (action.type) {
-	case SET_FULL_SCREEN_STATUS:
+	case 'SET_FULL_SCREEN_STATUS':
 		return {
 			...state,
 			full: action.status,
@@ -20,15 +22,5 @@ const fullScreenReducer = (
 		return state;
 	}
 };
-
-type fullScreenType = {
-	type: typeof SET_FULL_SCREEN_STATUS,
-	status: boolean,
-}
-
-export const setFullScreenStatus = (status: boolean): fullScreenType => ({
-	type: SET_FULL_SCREEN_STATUS,
-	status,
-});
 
 export default fullScreenReducer;

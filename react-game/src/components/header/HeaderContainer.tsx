@@ -1,14 +1,15 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import Header from './Header';
-import { setEng, setRus } from '../../redux/changeLanguageReducer';
-import { toggleMode } from '../../redux/styleModeReducer';
+import changeLangAction from '../../actions/changeLangAction';
+import styleModeAction from '../../actions/styleModeAction';
+import { GlobalState } from '../../redux/redux-store';
 
-const HeaderGetData = (props) => {
+const HeaderGetData: React.FC<any> = (props) => {
 	useEffect(() => {
 		if (localStorage) {
 			if (localStorage.getItem('gameLanguage')) {
-				const lang = JSON.parse(localStorage.getItem('gameLanguage'));
+				const lang = JSON.parse(localStorage.getItem('gameLanguage')!);
 				if (lang === 'rus') {
 					props.setRus();
 				} else {
@@ -17,7 +18,7 @@ const HeaderGetData = (props) => {
 			}
 
 			if (localStorage.getItem('gameMode')) {
-				const mode = JSON.parse(localStorage.getItem('gameMode'));
+				const mode = JSON.parse(localStorage.getItem('gameMode')!);
 				props.toggleMode(mode);
 			}
 		}
@@ -26,7 +27,7 @@ const HeaderGetData = (props) => {
 	return <Header {...props} />;
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: GlobalState) => ({
 	language: state.changeLang,
 	mode: state.styleMode.mode,
 	aboutGameBtn: state.buttonsHandler.aboutGameBtn,
@@ -34,6 +35,15 @@ const mapStateToProps = (state) => ({
 	recordsBtn: state.buttonsHandler.recordsBtn,
 	settingsBtn: state.buttonsHandler.settingsBtn,
 });
+
+const {
+	setRus,
+	setEng,
+} = changeLangAction;
+
+const {
+	toggleMode,
+} = styleModeAction;
 
 const HeaderContainer = connect(mapStateToProps, {
 	setRus,
