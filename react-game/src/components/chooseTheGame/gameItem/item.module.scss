@@ -1,0 +1,26 @@
+.item {
+  background-color: grey;
+  border: 5px solid #ababab;
+  box-sizing: border-box;
+}
+
+.beforeClick{
+  border: 2px solid black;
+  background-color: grey;
+  font-size: 20px;
+  font-weight: bold;
+  font-family: monospace;
+  color: black;
+
+  @media (max-width: 600px) {
+    font-size: 15px;
+  }
+}
+
+.friendly {
+  background-color: greenyellow;
+}
+
+.aggressive {
+  background-color: red;
+}

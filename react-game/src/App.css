@@ -1,0 +1,7 @@
+.app {
+  max-width: 800px;
+  margin: 0 auto;
+  background-color: rgba(0, 0, 0, 0.7);
+  min-height: 100vh;
+  position: relative;
+}

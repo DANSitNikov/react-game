@@ -1,0 +1,70 @@
+{
+  "name": "react-game",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@material-ui/core": "^4.11.3",
+    "@material-ui/data-grid": "^4.0.0-alpha.21",
+    "@material-ui/icons": "^4.11.2",
+    "@testing-library/jest-dom": "^5.11.9",
+    "@testing-library/react": "^11.2.5",
+    "@testing-library/user-event": "^12.7.1",
+    "@types/jest": "^26.0.22",
+    "@types/node": "^14.14.41",
+    "@types/react": "^17.0.3",
+    "@types/react-dom": "^17.0.3",
+    "@types/react-redux": "^7.1.16",
+    "bootstrap": "^4.6.0",
+    "fontsource-roboto": "^4.0.0",
+    "howler": "^2.2.1",
+    "node-sass": "^5.0.0",
+    "react": "^17.0.1",
+    "react-bootstrap": "^1.5.0",
+    "react-burger-menu": "^3.0.3",
+    "react-dom": "^17.0.1",
+    "react-howler": "^5.0.0",
+    "react-page-visibility": "^6.4.0",
+    "react-redux": "^7.2.2",
+    "react-responsive-carousel": "^3.2.12",
+    "react-router": "^5.2.0",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "4.0.2",
+    "react-slider": "^1.1.4",
+    "react-table": "^7.6.3",
+    "redux": "^4.0.5",
+    "typescript": "^4.2.4",
+    "web-vitals": "^1.1.0"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "lint": "node node_modules/eslint/bin/eslint.js ./src"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@types/react-howler": "^3.7.2",
+    "@types/react-router-dom": "^5.1.7",
+    "eslint": "^7.20.0",
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-plugin-react": "^7.22.0"
+  }
+}

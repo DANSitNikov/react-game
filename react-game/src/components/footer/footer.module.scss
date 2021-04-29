@@ -1,0 +1,30 @@
+.footer {
+  position: fixed;
+  bottom: 0;
+  max-width: 800px;
+  background-color: wheat;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 3px;
+  width: 100%;
+  color: black !important;
+
+  .git {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+
+    &:hover {
+      path{
+        fill: #646464;
+      }
+    }
+
+  }
+
+
+  p{
+    margin: 0 !important;
+  }
+}
