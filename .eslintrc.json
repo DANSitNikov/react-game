@@ -34,10 +34,11 @@
         "jsx-a11y/click-events-have-key-events": 0,
         "react/jsx-filename-extension": [1, { "extensions": [".tsx", ".ts"] }],
         "no-use-before-define": "off",
-        "@typescript-eslint/no-use-before-define": ["error"],
         "import/extensions": 0,
         "import/no-unresolved": 0,
         "@typescript-eslint/no-unused-vars": "error",
-        "arrow-body-style": 0
+        "arrow-body-style": 0,
+        "no-param-reassign": 0,
+        "no-underscore-dangle": 0
     }
 }
