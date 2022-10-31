@@ -1,44 +1,42 @@
 {
-    "env": {
-        "browser": true,
-        "es2021": true
+  "env": {
+    "browser": true,
+    "es2021": true
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "airbnb",
+    "prettier"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
     },
-    "extends": [
-        "eslint:recommended",
-        "plugin:react/recommended",
-        "airbnb"
-    ],
-    "parser": "@typescript-eslint/parser",
-    "parserOptions": {
-        "ecmaFeatures": {
-            "jsx": true
-        },
-        "ecmaVersion": 2020,
-        "sourceType": "module"
-    },
-    "plugins": [
-        "react",
-        "@typescript-eslint"
-    ],
-    "rules": {
-        "linebreak-style": 0,
-        "indent": [2, "tab"],
-        "no-tabs": 0,
-        "react/jsx-indent": [2, "tab"],
-        "react/prop-types": "off",
-        "react/jsx-indent-props": 0,
-        "no-nested-ternary": 0,
-        "jsx-a11y/control-has-associated-label": 0,
-        "react/jsx-props-no-spreading": 0,
-        "jsx-a11y/no-static-element-interactions": 0,
-        "jsx-a11y/click-events-have-key-events": 0,
-        "react/jsx-filename-extension": [1, { "extensions": [".tsx", ".ts"] }],
-        "no-use-before-define": "off",
-        "import/extensions": 0,
-        "import/no-unresolved": 0,
-        "@typescript-eslint/no-unused-vars": "error",
-        "arrow-body-style": 0,
-        "no-param-reassign": 0,
-        "no-underscore-dangle": 0
-    }
+    "ecmaVersion": 2020,
+    "sourceType": "module"
+  },
+  "plugins": ["react", "@typescript-eslint", "prettier"],
+  "rules": {
+    "linebreak-style": 0,
+    "no-tabs": 0,
+    "react/prop-types": "off",
+    "react/jsx-indent-props": 0,
+    "no-nested-ternary": 0,
+    "jsx-a11y/control-has-associated-label": 0,
+    "react/jsx-props-no-spreading": 0,
+    "jsx-a11y/no-static-element-interactions": 0,
+    "jsx-a11y/click-events-have-key-events": 0,
+    "react/jsx-filename-extension": [1, { "extensions": [".tsx", ".ts"] }],
+    "no-use-before-define": "off",
+    "import/extensions": 0,
+    "import/no-unresolved": 0,
+    "@typescript-eslint/no-unused-vars": "error",
+    "arrow-body-style": 0,
+    "no-param-reassign": 0,
+    "no-underscore-dangle": 0,
+    "react/destructuring-assignment": 0,
+    "prettier/prettier": ["error"]
+  }
 }

@@ -6,49 +6,44 @@ import styleModeAction from '../../actions/styleModeAction';
 import { GlobalState } from '../../redux/redux-store';
 
 const HeaderGetData: React.FC<any> = (props) => {
-	useEffect(() => {
-		if (localStorage) {
-			if (localStorage.getItem('gameLanguage')) {
-				const lang = JSON.parse(localStorage.getItem('gameLanguage')!);
-				if (lang === 'rus') {
-					props.setRus();
-				} else {
-					props.setEng();
-				}
-			}
+  useEffect(() => {
+    if (localStorage) {
+      if (localStorage.getItem('gameLanguage')) {
+        const lang = JSON.parse(localStorage.getItem('gameLanguage')!);
+        if (lang === 'rus') {
+          props.setRus();
+        } else {
+          props.setEng();
+        }
+      }
 
-			if (localStorage.getItem('gameMode')) {
-				const mode = JSON.parse(localStorage.getItem('gameMode')!);
-				props.toggleMode(mode);
-			}
-		}
-	}, []);
+      if (localStorage.getItem('gameMode')) {
+        const mode = JSON.parse(localStorage.getItem('gameMode')!);
+        props.toggleMode(mode);
+      }
+    }
+  }, []);
 
-	return <Header {...props} />;
+  return <Header {...props} />;
 };
 
 const mapStateToProps = (state: GlobalState) => ({
-	language: state.changeLang,
-	mode: state.styleMode.mode,
-	aboutGameBtn: state.buttonsHandler.aboutGameBtn,
-	gameBtn: state.buttonsHandler.gameBtn,
-	recordsBtn: state.buttonsHandler.recordsBtn,
-	settingsBtn: state.buttonsHandler.settingsBtn,
+  language: state.changeLang,
+  mode: state.styleMode.mode,
+  aboutGameBtn: state.buttonsHandler.aboutGameBtn,
+  gameBtn: state.buttonsHandler.gameBtn,
+  recordsBtn: state.buttonsHandler.recordsBtn,
+  settingsBtn: state.buttonsHandler.settingsBtn,
 });
 
-const {
-	setRus,
-	setEng,
-} = changeLangAction;
+const { setRus, setEng } = changeLangAction;
 
-const {
-	toggleMode,
-} = styleModeAction;
+const { toggleMode } = styleModeAction;
 
 const HeaderContainer = connect(mapStateToProps, {
-	setRus,
-	setEng,
-	toggleMode,
+  setRus,
+  setEng,
+  toggleMode,
 })(HeaderGetData);
 
 export default HeaderContainer;
