@@ -25,3 +25,9 @@ npm run start
 ```
 npm run lint
 ```
+
+## Node version
+
+```
+14
+```
